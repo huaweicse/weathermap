@@ -1,0 +1,42 @@
+{
+  "coord": {
+    "lon": 110.34,
+    "lat": 20.05
+  },
+  "weather": [
+    {
+      "id": 803,
+      "main": "Clouds",
+      "description": "broken clouds",
+      "icon": "04d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 26,
+    "pressure": 1016,
+    "humidity": 69,
+    "temp_min": 26,
+    "temp_max": 26
+  },
+  "visibility": 10000,
+  "wind": {
+    "speed": 7,
+    "deg": 50
+  },
+  "clouds": {
+    "all": 75
+  },
+  "dt": 1509433200,
+  "sys": {
+    "type": 1,
+    "id": 7424,
+    "message": 0.0951,
+    "country": "CN",
+    "sunrise": 1509403182,
+    "sunset": 1509444267
+  },
+  "id": 1809078,
+  "name": "Haikou",
+  "cod": 200
+}

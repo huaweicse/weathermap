@@ -1,0 +1,84 @@
+body, table {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.topic {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e7e7e7;
+    background-color: #f8f8f8;
+}
+
+.input-div {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.sub-text-div {
+    margin-bottom: 5px;
+}
+
+.sub-tab-div {
+    padding-top: 15px;
+}
+
+.for-list-group-div {
+    margin: 10px 5% 0 5%;
+}
+
+.weather-temp-txt {
+    font-weight: bolder;
+    font-size: 30px;
+    margin-left: 10px;
+}
+
+.middle {
+    vertical-align: middle !important;
+}
+
+.middle span {
+    margin-right: 15px;
+}
+
+.weather-text-shadow {
+    font-weight: bolder;
+    text-shadow: 0 0 0.2em #F87, 0 0 0.2em #F87
+}
+
+.top-button-div {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.chart-select-div {
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+}
+
+.foot-txt-div {
+    margin: 15px 20px;
+    float: right;
+    font-size: smaller;
+}
+
+.font-smaller {
+    font-size: smaller
+}
+
+.wm-font-bolder {
+    font-weight: bolder;
+}
+
+.uvi-div {
+    margin-top: -15px;
+}
+
+.uvi-new-span {
+    font-style: italic;
+    font-size: smaller;
+    font-weight: bolder;
+    color: #F77C47;
+}

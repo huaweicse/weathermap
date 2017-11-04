@@ -1,0 +1,26 @@
+APPLICATION_ID: weathermap
+service_description:
+  name: fusionweatherdata
+  version: 0.0.1
+  properties:
+    allowCrossApp: false
+cse:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhwclouds.com:443
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+  rest:
+    address: 0.0.0.0:13092
+  credentials:
+    accessKey: NQIZW3SSNRDLT0ZKZANS
+    secretKey: Wn3QykqzsyD5osUFc2hFH6qozqOtV5FvetckJ7fr
+    akskCustomCipher: default

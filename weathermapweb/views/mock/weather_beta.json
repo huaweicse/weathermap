@@ -1,0 +1,21 @@
+{
+  "cityName": "Shenzhen",
+  "country": "CN",
+  "temperature": 28.67,
+  "image": "01d",
+  "date": 1509690600,
+  "weather": "clear sky",
+  "windSpeed": 6.2,
+  "cloudiness": "clear sky",
+  "cloudsDeg": 0,
+  "pressure": 1014,
+  "humidity": 30,
+  "sunrise": 1509661754,
+  "sunset": 1509702298,
+  "coordinatesLat": 22.55,
+  "coordinatesLon": 114.07,
+  "uviDate": 1509710400,
+  "uviDateISO": "2017-11-03T12:00:00Z",
+  "uviValue": 7.81,
+  "currentTime": 1509691879187
+}

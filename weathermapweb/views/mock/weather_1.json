@@ -1,0 +1,16 @@
+{
+  "cityName" : "HaiKou",
+  "temperature" : 26.0,
+  "image" : "04d",
+  "date" : 1509433200,
+  "weather" : "broken clouds",
+  "windSpeed" : 7,
+  "cloudiness" : "broken clouds",
+  "cloudsDeg":  75,
+  "pressure" : 1016,
+  "humidity" : 69,
+  "sunrise" : 1509403182,
+  "sunset" : 1509444267,
+  "coordinatesLat" : 20.05,
+  "coordinatesLon" : 110.34
+}
