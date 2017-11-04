@@ -21,6 +21,6 @@ cse:
   rest:
     address: 0.0.0.0:13091
   credentials:
-    accessKey: NQIZW3SSNRDLT0ZKZANS
-    secretKey: Wn3QykqzsyD5osUFc2hFH6qozqOtV5FvetckJ7fr
+    accessKey: UZLI6CLENEO6D2ANV35U
+    secretKey: nAQ7jQyynhuDckGGtzNYMJGDZoFqaEfNwhadIXXP
     akskCustomCipher: default

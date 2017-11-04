@@ -42,6 +42,7 @@ public class FusionweatherdataDelegate
         {
             String s = invoker.getForObject(url, String.class, new Object());
             su = Json.decodeValue(s, CurrentWeatherSummary.class);
+            System.out.println("-----  " + s);
         }
         catch (Exception e)
         {
