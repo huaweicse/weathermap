@@ -22,7 +22,7 @@ fi
 
 #check java version
 if [ ! -z `java -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
-    nohup $JAVA $JAVA_OPTS -jar ./currentweatherdata-beta1-2.0.0.jar >/dev/null 2>&1 & 
+    nohup $JAVA $JAVA_OPTS -jar ./currentweatherdata-beta-2.0.0.jar >/dev/null 2>&1 & 
     echo 'Started successfully, See more details in logs.'
 else
     echo 'Java version must be 1.8+.'

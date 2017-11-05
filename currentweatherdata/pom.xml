@@ -76,7 +76,7 @@
                             <zip destfile="target/${build.finalName}.zip">
                             <zipfileset dir="target/lib" prefix="lib" />
                             <zipfileset dir="target" includes="*.jar" />
-                            <zipfileset dir="." includes="start.sh" />
+                            <zipfileset dir="." includes="startup.sh" />
                             </zip>
                         </target>
                         </configuration>
