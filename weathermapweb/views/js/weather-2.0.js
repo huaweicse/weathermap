@@ -2,11 +2,12 @@
 
     var myApp = angular.module("app", ["chart.js", 'ui.bootstrap']);
 
-    myApp.controller("LineCtrl", function ($scope, $http, $timeout, $filter) {
+    myApp.controller("LineCtrl", function ($scope, $http, $timeout, $filter, $window) {
 
+        console.log("--- " + $window.localStorage.cityName);
         $scope.globalData = {
-            city: "Shenzhen",
-            country: "CN",
+            city: $window.localStorage.cityName || "Shenzhen",
+            country: $window.localStorage.countryName || "CN",
             tempType: "C",
             text1: "当前城市 Shenzhen, CN",
             text2: "未来36小时预报 Shenzhen, CN",
@@ -23,6 +24,13 @@
                 $scope.globalData.text2 = "未来36小时预报 " + $scope.globalData.city + ", " + $scope.globalData.country;
                 $scope.globalData.text3 = "未来3天预报列表 " + $scope.globalData.city + ", " + $scope.globalData.country;
                 $scope.globalData.text4 = "未来3天预报趋势图 " + $scope.globalData.city + ", " + $scope.globalData.country;
+            }
+        };
+
+        $scope.restAlertModel = {
+            list: [],
+            closeAlert: function (index) {
+                $scope.restAlertModel.list.splice(index, 1);
             }
         };
 
@@ -46,6 +54,7 @@
         $scope.searchModel = {
             cityNameInput: "",
             searchClickFn: function () {
+                $window.localStorage.cityName = $scope.searchModel.cityNameInput;
                 achieveAllWeatherData($scope.searchModel.cityNameInput);
             }
         };
@@ -285,10 +294,16 @@
                     // location
                     $scope.globalData.city = rCurrentWeather.cityName;
                     $scope.globalData.country = rCurrentWeather.country;
+
+                    // localStorage
+                    $window.localStorage.cityName = rCurrentWeather.cityName;
+                    $window.localStorage.countryName = rCurrentWeather.cityName;
+
                     $scope.globalData.refreshText();
 
                 }, function (err, stat) {
                     console.log(err);
+                    $scope.restAlertModel.list.push({msg: "Failed to achieve the weather data."});
                 }
             );
         }
@@ -319,7 +334,7 @@
             }
         }
 
-        achieveAllWeatherData("shenzhen");
+        achieveAllWeatherData($scope.globalData.city);
     });
 
     myApp.config(['ChartJsProvider', function (ChartJsProvider) {
