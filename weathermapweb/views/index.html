@@ -26,6 +26,9 @@
     </div>
     <div class="container">
         <div class="row input-div">
+            <div uib-alert ng-repeat="alert in restAlertModel.list" class="alert-danger"
+                 close="restAlertModel.closeAlert($index)" ng-bind="alert.msg"
+                 dismiss-on-timeout="5000"></div>
             <div class="input-group col-md-6 col-md-offset-3">
                 <input type="text" class="form-control" placeholder="您的城市名称（全拼）" ng-model="searchModel.cityNameInput"
                        ng-keypress="($event.which === 13) ? searchModel.searchClickFn() : 0">
