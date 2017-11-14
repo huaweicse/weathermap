@@ -2,18 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <name>weathermap</name>
     <groupId>dev</groupId>
     <artifactId>weathermap</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-
     <modules>
-        <module>currentweatherdata</module>
-        <module>forecastweatherdata</module>
-        <module>fusionweatherdata</module>
-        <module>currentweatherdata-beta</module>
+        <module>weather</module>
+        <module>forecast</module>
+        <module>weathermap-edge</module>
+        <module>weather-beta</module>
     </modules>
 </project>
