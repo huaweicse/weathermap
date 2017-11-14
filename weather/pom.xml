@@ -4,19 +4,19 @@
         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.service</groupId>
-    <artifactId>currentweatherdata</artifactId>
+    <artifactId>weather</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>currentweatherdata</name>
+    <name>weather</name>
     <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cse.version>2.2.5</cse.version>
+        <cse.version>2.2.7</cse.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <demo.main>com.service.currentweatherdata.CurrentweatherdataApplication</demo.main>
+        <app.main>com.service.weather.WeatherApplication</app.main>
     </properties>
 
     <dependencyManagement>
@@ -96,7 +96,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>./lib/</classpathPrefix>
-                            <mainClass>${demo.main}</mainClass>
+                            <mainClass>${app.main}</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Class-Path>.</Class-Path>

@@ -1,6 +1,6 @@
 APPLICATION_ID: weathermap
 service_description:
-  name: fusionweatherdata
+  name: fusionweather
   version: 0.0.1
   properties:
     allowCrossApp: false
