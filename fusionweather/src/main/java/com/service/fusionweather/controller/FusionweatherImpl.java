@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.CseSpringDemoCodegen", date = "2017-11-01T10:27:01.678+08:00")
 
-@RestSchema(schemaId = "fusionweatherdata")
-@RequestMapping(path = "/fusionweatherdata", produces = MediaType.APPLICATION_JSON)
+@RestSchema(schemaId = "fusionweather")
+@RequestMapping(path = "/fusionweather", produces = MediaType.APPLICATION_JSON)
 public class FusionweatherImpl
 {
 
