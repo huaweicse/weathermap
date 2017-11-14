@@ -11,7 +11,7 @@
     <modules>
         <module>weather</module>
         <module>forecast</module>
-        <module>weathermap-edge</module>
+        <module>fusionweather</module>
         <module>weather-beta</module>
     </modules>
 </project>
