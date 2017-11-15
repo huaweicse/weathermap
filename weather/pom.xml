@@ -97,7 +97,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>./lib/</classpathPrefix>
-                            <mainClass>${app.main}</mainClass>
+                            <mainClass>${app.main}</mainClass> 
                         </manifest>
                         <manifestEntries>
                             <Class-Path>.</Class-Path>

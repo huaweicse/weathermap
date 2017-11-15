@@ -7,22 +7,20 @@
 #JAVA_HOME=/opt/jdk1.8.0
 
 #check JAVA_HOME & java
-if [ -z `which java` ]; then
-    echo `which java`
-    if [ -z $JAVA_HOME ]; then
-            JAVA=$JAVA_HOME/bin/java
-        else
-            echo 'Cannot find java command and JAVA_HOME.'
+JAVA='java'
+if [ -z "`which java`" ]; then
+    if [ -z "$JAVA_HOME" ]; then
+        JAVA=$JAVA_HOME/bin/java
+    else
+        echo "Cannot find java command and JAVA_HOME"
     fi
-else
-    JAVA='java'
 fi
 
 #set JAVA_OPTS
 #JAVA_OPTS="-server -Xms512m -Xmx512m -Xmn256m -Xss256k"
 #JAVA_OPTS="$JAVA_OPTS -agentlib:jdwp=transport=dt_socket,address=0:8000,server=y,suspend=n"
 
-#swith to home directory
+#switch to home directory
 cd `dirname "$0"`
 
 #check java version

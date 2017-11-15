@@ -7,15 +7,13 @@
 #JAVA_HOME=/opt/jdk1.8.0
 
 #check JAVA_HOME & java
-if [ -z `which java` ]; then
-    echo `which java`
-    if [ -z $JAVA_HOME ]; then
-            JAVA=$JAVA_HOME/bin/java
-        else
-            echo 'Cannot find java command and JAVA_HOME.'
+JAVA='java'
+if [ -z "`which java`" ]; then
+    if [ -z "$JAVA_HOME" ]; then
+        JAVA=$JAVA_HOME/bin/java
+    else
+        echo "Cannot find java command and JAVA_HOME"
     fi
-else
-    JAVA='java'
 fi
 
 #set JAVA_OPTS
