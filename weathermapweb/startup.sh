@@ -23,7 +23,7 @@ cd `dirname "$0"`
 #check node version
 if [ ! -z `node --version 2>&1 |  egrep '4.8.\d*'` ]; then
     npm install
-    npm start >log.txt 2>&1 &
+    npm start >../logs/weathermapweb.log 2>&1 &
     echo "weathermap webservice started successfully."
 else
     echo 'Node version must be 4.8.4+.'
