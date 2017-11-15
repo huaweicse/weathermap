@@ -69,6 +69,7 @@
 									<zipfileset dir="weathermapweb/" prefix="weathermapweb" />
 
 									<zipfileset dir="." includes="startup_all.sh" />
+									<zipfileset dir="." includes="shutdown_all.sh" />
 								</zip>
 							</target>
 						</configuration>

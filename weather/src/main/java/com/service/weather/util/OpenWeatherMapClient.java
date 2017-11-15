@@ -15,7 +15,7 @@ public final class OpenWeatherMapClient
     private static final Logger LOGGER = LoggerFactory.getLogger(CurrentWeatherSummary.class);
 
     // Metric: Celsius, Imperial: Fahrenheit
-    private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?appid=763d8bb819e1b0fb58c8385ddd26856e&units=metric&q=";
+    private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?appid=763d8bb819e1b0fb58c8385ddd26856e&units=metric&q=";
 
     public static CurrentWeatherSummary showCurrentWeather(String c)
     {
