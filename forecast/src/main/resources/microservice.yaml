@@ -21,6 +21,6 @@ cse:
   rest:
     address: 0.0.0.0:13091
   credentials:
-    accessKey: UZLI6CLENEO6D2ANV35U
-    secretKey: nAQ7jQyynhuDckGGtzNYMJGDZoFqaEfNwhadIXXP
+    accessKey: yourak
+    secretKey: yoursk
     akskCustomCipher: default

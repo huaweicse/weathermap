@@ -70,6 +70,8 @@
 
 									<zipfileset dir="." includes="startup_all.sh" />
 									<zipfileset dir="." includes="shutdown_all.sh" />
+									<zipfileset dir="." includes="install.sh" />
+									<zipfileset dir="." includes="credentials" />
 								</zip>
 							</target>
 						</configuration>
