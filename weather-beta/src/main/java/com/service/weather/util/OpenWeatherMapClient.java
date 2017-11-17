@@ -20,7 +20,7 @@ public final class OpenWeatherMapClient
 
     private static final String API_URL_HTTPS = "https://api.openweathermap.org/data/2.5/weather?appid=763d8bb819e1b0fb58c8385ddd26856e&units=metric&q=";
 
-    private static final String UVI_URL_HTTP = "https://api.openweathermap.org/data/2.5/uvi?appid=763d8bb819e1b0fb58c8385ddd26856e&lat=%s&lon=%s";
+    private static final String UVI_URL_HTTP = "http://api.openweathermap.org/data/2.5/uvi?appid=763d8bb819e1b0fb58c8385ddd26856e&lat=%s&lon=%s";
     
     private static final String UVI_URL_HTTPS = "https://api.openweathermap.org/data/2.5/uvi?appid=763d8bb819e1b0fb58c8385ddd26856e&lat=%s&lon=%s";
 

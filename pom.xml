@@ -46,31 +46,49 @@
 							<target>
 								<zip destfile="target/${build.finalName}.zip">
 
-									<zipfileset dir="forecast/target/lib" prefix="forecast/lib" />
-									<zipfileset dir="forecast/target" prefix="forecast" includes="*.jar" />
-									<zipfileset dir="forecast/" prefix="forecast" includes="startup.sh" />
-									<zipfileset dir="forecast/" prefix="forecast" includes="shutdown.sh" />
-
-									<zipfileset dir="weather/target/lib" prefix="weather/lib" />
-									<zipfileset dir="weather/target" prefix="weather" includes="*.jar" />
-									<zipfileset dir="weather/" prefix="weather" includes="startup.sh" />
-									<zipfileset dir="weather/" prefix="weather" includes="shutdown.sh" />
+									<zipfileset dir="forecast/target/lib" prefix="lib" />
 									
-									<zipfileset dir="weather-beta/target/lib" prefix="weather-beta/lib" />
-									<zipfileset dir="weather-beta/target" prefix="weather-beta" includes="*.jar" />
-									<zipfileset dir="weather-beta/" prefix="weather-beta" includes="startup.sh" />
-									<zipfileset dir="weather-beta/" prefix="weather-beta" includes="shutdown.sh" />
+									<zipfileset dir="forecast/target" prefix="forecast"
+										includes="*.jar" />
+									<zipfileset dir="forecast/" prefix="forecast"
+										includes="startup.sh" />
+									<zipfileset dir="forecast/" prefix="forecast"
+										includes="shutdown.sh" />
+									<zipfileset dir="forecast/" prefix="forecast"
+										includes="startup.bat" />
 
-									<zipfileset dir="fusionweather/target/lib" prefix="fusionweather/lib" />
-									<zipfileset dir="fusionweather/target" prefix="fusionweather" includes="*.jar" />
-									<zipfileset dir="fusionweather/" prefix="fusionweather" includes="startup.sh" />
-									<zipfileset dir="fusionweather/" prefix="fusionweather" includes="shutdown.sh" />
+									<zipfileset dir="weather/target" prefix="weather"
+										includes="*.jar" />
+									<zipfileset dir="weather/" prefix="weather"
+										includes="startup.sh" />
+									<zipfileset dir="weather/" prefix="weather"
+										includes="shutdown.sh" />
+									<zipfileset dir="weather/" prefix="weather"
+										includes="startup.bat" />
+
+									<zipfileset dir="weather-beta/target" prefix="weather-beta"
+										includes="*.jar" />
+									<zipfileset dir="weather-beta/" prefix="weather-beta"
+										includes="startup.sh" />
+									<zipfileset dir="weather-beta/" prefix="weather-beta"
+										includes="shutdown.sh" />
+									<zipfileset dir="weather-beta/" prefix="weather-beta"
+										includes="startup.bat" />
+
+									<zipfileset dir="fusionweather/target" prefix="fusionweather"
+										includes="*.jar" />
+									<zipfileset dir="fusionweather/" prefix="fusionweather"
+										includes="startup.sh" />
+									<zipfileset dir="fusionweather/" prefix="fusionweather"
+										includes="shutdown.sh" />
+									<zipfileset dir="fusionweather/" prefix="fusionweather"
+										includes="startup.bat" />
 
 									<zipfileset dir="weathermapweb/" prefix="weathermapweb" />
 
 									<zipfileset dir="." includes="startup_all.sh" />
 									<zipfileset dir="." includes="shutdown_all.sh" />
-									<zipfileset dir="." includes="install.sh" />
+									<zipfileset dir="." includes="startup_all.bat" />
 									<zipfileset dir="." includes="credentials" />
 								</zip>
 							</target>

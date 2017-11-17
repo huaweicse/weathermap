@@ -47,7 +47,7 @@ public enum RestTemplateProxy
                     .build();
             HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
             factory.setHttpClient(httpClient);
-            factory.setConnectTimeout(5000);
+            factory.setConnectTimeout(10000);
 
             restTemplate.setRequestFactory(factory);
         }
