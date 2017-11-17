@@ -28,6 +28,6 @@ REM startup erver
 set "RUN_CMD="%JAVA%""
 set "RUN_CMD=%RUN_CMD% %JAVA_OPTS%"
 set "RUN_CMD=%RUN_CMD% -jar ./forecast-1.0.0.jar"
-start "fastcast" %RUN_CMD%
+call %RUN_CMD%
 
 :end

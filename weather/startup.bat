@@ -27,7 +27,7 @@ cd %~dp0
 REM startup erver
 set "RUN_CMD="%JAVA%""
 set "RUN_CMD=%RUN_CMD% %JAVA_OPTS%"
-set "RUN_CMD=%RUN_CMD% -jar ./fusionweather-1.0.0.jar"
-start "fusionweather" %RUN_CMD%
+set "RUN_CMD=%RUN_CMD% -jar ./weather-1.0.0.jar"
+call %RUN_CMD%
 
 :end

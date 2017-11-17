@@ -17,15 +17,11 @@ echo HAS_NODE_HOME
 set NPM="%NODE_HOME%\npm"
 
 :HAS_NODE
-echo HAS_NODE
-REM set 
-REM NODE_OPTS="-server -Xms512m -Xmx512m -Xmn256m -Xss256k"
-REM NODE_OPTS="$NODE_OPTS -agentlib:jdwp=transport=dt_socket,address=0:8000,server=y,suspend=n"
 
 REM swith to home directory
 cd %~dp0
 
 REM startup erver
-start "weathermapweb" %NPM% install & %NPM% start
+%NPM% install & %NPM% start
 
 :end

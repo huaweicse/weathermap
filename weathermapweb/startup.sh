@@ -28,4 +28,3 @@ if [ ! -z `node --version 2>&1 |  egrep '4.8.\d*'` ]; then
 else
     echo 'Node version must be 4.8.4+.'
 fi
- 

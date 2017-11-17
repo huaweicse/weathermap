@@ -25,7 +25,8 @@ cd `dirname "$0"`
 
 #check java version
 if [ ! -z `java -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
-    eval $JAVA $JAVA_OPTS -jar ./forecast-1.0.0.jar >/dev/null 2>&1 & 
+    eval $JAVA $JAVA_OPTS -jar ./forecast-1.0.0.jar >/dev/null 2>&1 &
+    echo "forecast started successfully."
 else
     echo 'Java version must be 1.8+.'
 fi
