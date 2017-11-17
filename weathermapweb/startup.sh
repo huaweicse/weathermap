@@ -7,7 +7,7 @@
 #NODE_HOME=/opt/node-v4.8.4
 
 #check NODE_HOME & npm
-NPM='npm'SSS
+NPM='npm'
 if [ -z "`which npm`" ]; then
     echo "`which npm`"
     if [ -z $NODE_HOME ]; then
@@ -24,7 +24,8 @@ cd `dirname "$0"`
 if [ ! -z `node --version 2>&1 |  egrep '4.8.\d*'` ]; then
     npm install
     npm start >../logs/weathermapweb.log 2>&1 &
-    echo "weathermap webservice started successfully."
+    echo "weathermapweb started successfully."
 else
     echo 'Node version must be 4.8.4+.'
 fi
+ 
