@@ -292,12 +292,12 @@
                     $scope.uviDataModel.isBeta = rCurrentWeather.uviDateISO != null;
 
                     // location
-                    $scope.globalData.city = rCurrentWeather.cityName;
-                    $scope.globalData.country = rCurrentWeather.country;
+                    $scope.globalData.city = rForecastWeather.cityName || rCurrentWeather.cityName || "Shenzhen";
+                    $scope.globalData.country = rForecastWeather.country || rCurrentWeather.country || "CN";
 
                     // localStorage
-                    $window.localStorage.cityName = rCurrentWeather.cityName;
-                    $window.localStorage.countryName = rCurrentWeather.cityName;
+                    $window.localStorage.cityName = $scope.globalData.city;
+                    $window.localStorage.countryName = $scope.globalData.country;
 
                     $scope.globalData.refreshText();
 
