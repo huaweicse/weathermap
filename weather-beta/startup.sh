@@ -24,7 +24,7 @@ fi
 cd `dirname "$0"`
 
 #check java version
-if [ ! -z `java -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
+if [ ! -z `$JAVA -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
     eval $JAVA $JAVA_OPTS -jar ./weather-beta-2.0.0.jar >/dev/null 2>&1 &
     echo "weather-beta started successfully."
 else
