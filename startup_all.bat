@@ -58,6 +58,6 @@ start weathermapweb\startup.bat
 goto end
 
 :nocredentials
-echo "Cannot find ak/sk in credentials file or system environment variables.
+echo "Cannot find ak/sk in credentials file or system environment variables."
 
 :end
