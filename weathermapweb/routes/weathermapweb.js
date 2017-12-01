@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
         host: proxy_host,
         port: proxy_port,
         method: 'GET',    //这里是发送的方法
-        path: 'http://127.0.0.1:13092/fusionweather/show?city=' + req.query.city,    //这里是访问的路径
+        path: 'http://127.0.0.1:13092/fusionweather/show?city=' + req.query.city.toLocaleLowerCase(),    //这里是访问的路径
         headers: {}
     };
     if (req.query.user) {
