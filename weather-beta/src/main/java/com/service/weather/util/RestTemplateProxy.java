@@ -18,47 +18,42 @@ import java.util.Properties;
 /**
  * RestTemplateClient
  */
-public enum RestTemplateProxy
-{
-    INSTANCE;
+public enum RestTemplateProxy {
+	INSTANCE;
 
-    private static final String FILE_NAME = "config/httpproxy.properties";
+	private static final String FILE_NAME = "config/httpproxy.properties";
 
-    private RestTemplate restTemplate = new RestTemplate();
+	private RestTemplate restTemplate = new RestTemplate();
 
-    private RestTemplateProxy()
-    {
-        final Logger logger = LoggerFactory.getLogger(RestTemplateProxy.class);
+	private RestTemplateProxy() {
+		final Logger logger = LoggerFactory.getLogger(RestTemplateProxy.class);
 
-        Properties prop = ConfigFileReader.readProperty(FILE_NAME);
+		Properties prop = ConfigFileReader.readProperty(FILE_NAME);
 
-        System.out.println(prop);
+		if (!prop.isEmpty() && StringUtils.isNotBlank(prop.getProperty("USER"))) {
+			logger.info("Initialize restTemplate with http proxy.");
+			CredentialsProvider credsProvider = new BasicCredentialsProvider();
+			credsProvider.setCredentials(
+					new AuthScope(prop.getProperty("HOST"), Integer.valueOf(prop.getProperty("PORT"))),
+					new UsernamePasswordCredentials(prop.getProperty("USER"), prop.getProperty("PWD")));
+			HttpClient httpClient = HttpClientBuilder.create()
+					.setProxy(new HttpHost(prop.getProperty("HOST"), Integer.valueOf(prop.getProperty("PORT"))))
+					.setDefaultCredentialsProvider(credsProvider).disableCookieManagement().build();
+			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+			factory.setHttpClient(httpClient);
+			factory.setConnectTimeout(10000);
 
-        if (!prop.isEmpty() && StringUtils.isNotBlank(prop.getProperty("USER")))
-        {
-            logger.info("Initialize restTemplate with http proxy.");
-            CredentialsProvider credsProvider = new BasicCredentialsProvider();
-            credsProvider.setCredentials(new AuthScope(prop.getProperty("HOST"), Integer.valueOf(prop.getProperty("PORT"))),
-                                         new UsernamePasswordCredentials(prop.getProperty("USER"), prop.getProperty("PWD")));
-            HttpClient httpClient = HttpClientBuilder.create()
-                    .setProxy(new HttpHost(prop.getProperty("HOST"), Integer.valueOf(prop.getProperty("PORT"))))
-                    .setDefaultCredentialsProvider(credsProvider)
-                    .disableCookieManagement()
-                    .build();
-            HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-            factory.setHttpClient(httpClient);
-            factory.setConnectTimeout(10000);
+			restTemplate.setRequestFactory(factory);
+		} else {
+			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+			factory.setConnectTimeout(10000);
 
-            restTemplate.setRequestFactory(factory);
-        }
-        else
-        {
-            logger.info("Initialize restTemplate directly.");
-        }
-    }
+			restTemplate.setRequestFactory(factory);
+			logger.info("Initialize restTemplate directly.");
+		}
+	}
 
-    public RestTemplate getRestTemplate()
-    {
-        return restTemplate;
-    }
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
+	}
 }

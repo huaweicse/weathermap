@@ -21,7 +21,7 @@ fi
 cd `dirname "$0"`
 
 #check node version
-if [ ! -z `node --version 2>&1 |  egrep '4.8.\d*'` ]; then
+if [[ $(echo "`node --version 2>&1` v4.8.4" | tr " " "\n" | sort -V | head -n 1) == "v4.8.4" ]]; then
     npm install
     npm start >../logs/weathermapweb.log 2>&1 &
     echo "weathermapweb started successfully."
