@@ -53,6 +53,10 @@ public enum RestTemplateProxy
         }
         else
         {
+			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+			factory.setConnectTimeout(10000);
+
+			restTemplate.setRequestFactory(factory);        	
             logger.info("Initialize restTemplate directly.");
         }
     }
