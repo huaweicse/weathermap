@@ -6,8 +6,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-import com.service.forecast.controller.ForecastImplDelegate;
 import com.service.forecast.entity.objective.DateListItem;
 import com.service.forecast.entity.objective.ForecastSummary;
 import com.service.forecast.entity.original.ForecastData;
@@ -16,29 +18,35 @@ import com.service.forecast.entity.original.ListItem;
 /**
  * OpenWeatherMapClient
  */
-public final class OpenWeatherMapClient {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ForecastImplDelegate.class);
+@Component
+public class OpenWeatherMapClient {
+	private static final Logger LOGGER = LoggerFactory.getLogger(OpenWeatherMapClient.class);
 
 	private static final String APP_KEY = "763d8bb819e1b0fb58c8385ddd26856e";
 
 	private static final String DEFAULT = "ShenZhen,CN";
 
 	// Metric: Celsius, Imperial: Fahrenheit
-	private static String URL = "http://api.openweathermap.org/data/2.5/forecast?appid=%s&units=metric&q=%s";
+	private static String URL_HTTP = "https://api.openweathermap.org/data/2.5/forecast?appid=%s&units=metric&q=%s";
 
 	private static String URL_HTTPS = "https://api.openweathermap.org/data/2.5/forecast?appid=%s&units=metric&q=%s";
 
-	static {
-		testURL();
-	}
+	private static String URL = URL_HTTP;
 
-	public static ForecastSummary showForecastWeather(String city) {
+	@Autowired
+	private RestTemplate restTemplate;
+
+	public ForecastSummary showForecastWeather(String city) {
+		long l = System.currentTimeMillis();
+		LOGGER.info("begin showForecastWeather from openweather");
 		city = StringUtils.isNotBlank(city) ? city : DEFAULT;
-		
+
 		ForecastSummary summary = new ForecastSummary();
 		try {
-			ForecastData forecastData = RestTemplateProxy.INSTANCE.getRestTemplate()
-					.getForObject(String.format(URL, APP_KEY, city), ForecastData.class);
+			ForecastData forecastData = restTemplate.getForObject(String.format(URL, APP_KEY, city),
+					ForecastData.class);
+
+			LOGGER.info("end showForecastWeather from openweather cost " + (System.currentTimeMillis() - l));
 
 			summary.setCityName(forecastData.getCity().getName());
 			summary.setCountry(forecastData.getCity().getCountry());
@@ -52,6 +60,8 @@ public final class OpenWeatherMapClient {
 			summary.setDateList(dateListItemList);
 		} catch (Exception e) {
 			LOGGER.error("Failed to get the forecast weather data form OpenWeatherMap with " + city, e);
+
+			swtichURL();
 		}
 
 		return summary;
@@ -75,13 +85,13 @@ public final class OpenWeatherMapClient {
 		return dateListItem;
 	}
 
-	private static void testURL() {
-		try {
-			RestTemplateProxy.INSTANCE.getRestTemplate().getForObject(String.format(URL, APP_KEY, DEFAULT),
-					ForecastData.class);
-		} catch (Exception ex) {
+	private void swtichURL() {
+		if (URL.equals(URL_HTTP)) {
 			URL = URL_HTTPS;
+		} else {
+			URL = URL_HTTP;
 		}
-		LOGGER.info("URL = " + URL);
+
+		LOGGER.info("switch url from openweather to: " + URL);
 	}
 }

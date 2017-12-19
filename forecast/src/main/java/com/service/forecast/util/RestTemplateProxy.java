@@ -1,5 +1,9 @@
 package com.service.forecast.util;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.util.Properties;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -10,10 +14,9 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Properties;
 
 /**
  * RestTemplateClient
@@ -22,19 +25,27 @@ public enum RestTemplateProxy
 {
     INSTANCE;
 
-    private static final String FILE_NAME = "config/httpproxy.properties";
+    private static final String FILE_NAME = "httpproxy.properties";
+    
+    private static final int TMOUT= 10000;
 
-    private RestTemplate restTemplate = new RestTemplate();
-
+    @Autowired
+    private RestTemplate restTemplate;
+    
     private RestTemplateProxy()
     {
         final Logger logger = LoggerFactory.getLogger(RestTemplateProxy.class);
 
-        Properties prop = ConfigFileReader.readProperty(FILE_NAME);
+        File file = new File(FILE_NAME);
+        
+        Properties prop = null;
+        
+        if (file.exists())
+        {
+        	 prop = ConfigFileReader.readProperty(FILE_NAME);
+        }
 
-        System.out.println(prop);
-
-        if (!prop.isEmpty() && StringUtils.isNotBlank(prop.getProperty("USER")))
+        if (prop != null && !prop.isEmpty() && StringUtils.isNotBlank(prop.getProperty("USER")))
         {
             logger.info("Initialize restTemplate with http proxy.");
             CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -47,14 +58,14 @@ public enum RestTemplateProxy
                     .build();
             HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
             factory.setHttpClient(httpClient);
-            factory.setConnectTimeout(10000);
+            factory.setConnectTimeout(TMOUT);
 
             restTemplate.setRequestFactory(factory);
         }
         else
         {
 			HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-			factory.setConnectTimeout(10000);
+			factory.setConnectTimeout(TMOUT);
 
 			restTemplate.setRequestFactory(factory);        	
             logger.info("Initialize restTemplate directly.");

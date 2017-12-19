@@ -33,6 +33,19 @@ copy microservice.yaml .\forecast\
 copy microservice.yaml .\fusionweather\
 del microservice.yaml
 
+if not exist "httpproxy.properties" goto nohttpproxy
+
+REM read httpproxy settings
+for /f "tokens=1,2 delims==" %%i in (httpproxy.properties) do (
+  set %%i=%%j
+)
+
+
+
+:nohttpproxy
+if not "%ak%" == "" goto microservice
+
+
 REM mklink with all service
 if not exist "weather\lib" mklink /J weather\lib lib
 if not exist "weather-beta\lib" mklink /J weather-beta\lib lib
@@ -59,5 +72,6 @@ goto end
 
 :nocredentials
 echo "Cannot find ak/sk in credentials file or system environment variables."
+
 
 :end
