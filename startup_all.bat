@@ -33,8 +33,6 @@ for /f "tokens=1,2 delims==" %%i in (httpproxy.properties) do (
   set %%i=%%j
 )
 
-echo %proxy.enabled%
-
 if not "%proxy.enabled%" == "true" goto nohttpproxy
 if "%proxy.host%" == "" goto httpproxyerror
 if "%proxy.port%" == "" goto httpproxyerror
