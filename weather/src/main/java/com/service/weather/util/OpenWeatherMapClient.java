@@ -6,11 +6,16 @@ import com.service.weather.entity.original.WeatherData;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * OpenWeatherMapClient
  */
-public final class OpenWeatherMapClient {
+@Component
+public class OpenWeatherMapClient {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrentWeatherSummary.class);
 
 	private static final String APP_KEY = "763d8bb819e1b0fb58c8385ddd26856e";
@@ -20,18 +25,20 @@ public final class OpenWeatherMapClient {
 	// Metric: Celsius, Imperial: Fahrenheit
 	private static String URL_HTTPS = "https://api.openweathermap.org/data/2.5/weather?appid=%s&q=%s&units=metric";
 	
-	private static String URL = "http://api.openweathermap.org/data/2.5/weather?appid=%s&q=%s&units=metric";
+	private static String URL_HTTP = "http://api.openweathermap.org/data/2.5/weather?appid=%s&q=%s&units=metric";
+	
+	private static String URL = URL_HTTP;
 
-	static {
-		testURL();
-	}
-
-	public static CurrentWeatherSummary showCurrentWeather(String city) {
+	@Autowired
+	@Qualifier("restProxyTemplate")
+	private RestTemplate restTemplate;
+	
+	public CurrentWeatherSummary showCurrentWeather(String city) {
 		city = StringUtils.isNotBlank(city) ? city : DEFAULT;
 
 		CurrentWeatherSummary summary = new CurrentWeatherSummary();
 		try {
-			WeatherData weatherData = RestTemplateProxy.INSTANCE.getRestTemplate()
+			WeatherData weatherData = restTemplate
 					.getForObject(String.format(URL, APP_KEY, city), WeatherData.class);
 
 			summary.setCityName(weatherData.getName());
@@ -51,18 +58,20 @@ public final class OpenWeatherMapClient {
 			summary.setCoordinatesLat(weatherData.getCoord().getLat());
 		} catch (Exception e) {
 			LOGGER.error("Failed to get the current weather data from OpenWeatherMap with " + city, e);
+			
+			swtichURL();
 		}
 
 		return summary;
 	}
 
-	private static void testURL() {
-		try {
-			RestTemplateProxy.INSTANCE.getRestTemplate().getForObject(String.format(URL, APP_KEY, DEFAULT),
-					WeatherData.class);
-		} catch (Exception ex) {
+	private void swtichURL() {
+		if (URL.equals(URL_HTTP)) {
 			URL = URL_HTTPS;
+		} else {
+			URL = URL_HTTP;
 		}
-		LOGGER.info("URL = " + URL);
+
+		LOGGER.info("switch url from openweather to: " + URL);
 	}
 }
