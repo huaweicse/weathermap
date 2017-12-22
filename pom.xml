@@ -90,6 +90,8 @@
 									<zipfileset dir="." includes="shutdown_all.sh" />
 									<zipfileset dir="." includes="startup_all.bat" />
 									<zipfileset dir="." includes="credentials" />
+									<zipfileset dir="." includes="httpproxy.properties" />
+									
 								</zip>
 							</target>
 						</configuration>
