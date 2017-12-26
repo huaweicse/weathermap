@@ -25,8 +25,7 @@ cd `dirname "$0"`
 
 #check java version
 if [ ! -z `$JAVA -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
-    eval $JAVA $JAVA_OPTS -jar ./fusionweather-1.0.0.jar >/dev/null 2>&1 &
-    echo "fusionweather started successfully."
+    eval $JAVA $JAVA_OPTS -jar ./fusionweather-1.0.0.jar >../logs/fusionweather.console 2>&1 &
 else
     echo 'Java version must be 1.8+.'
 fi

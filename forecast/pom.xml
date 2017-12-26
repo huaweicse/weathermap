@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cse.version>2.2.26</cse.version>
+		<cse.version>2.2.28</cse.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<app.main>com.service.forecast.ForecastApplication</app.main>

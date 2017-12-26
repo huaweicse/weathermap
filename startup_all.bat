@@ -21,7 +21,8 @@ REM    accessKey: UZLI6CLENEO6D2ANV35U
 REM    secretKey: nAQ7jQyynhuDckGGtzNYMJGDZoFqaEfNwhadIXXP
 REM    akskCustomCipher: default
 :microservice
-echo cse:> microservice.yaml
+echo APPLICATION_ID: weathermap1> microservice.yaml
+echo cse:>> microservice.yaml
 echo   credentials:>> microservice.yaml
 echo     accessKey: %ak%>> microservice.yaml
 echo     secretKey: %sk%>> microservice.yaml

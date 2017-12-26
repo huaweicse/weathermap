@@ -6,23 +6,28 @@
 # check sk/sk
 if [ -z "$AK" ]; then
     if [ -e "credentials" ]; then 
-        AK=`awk -F= '/ak/{print $2}' credentials`
+        AK=`awk -F= '/ak/{print $2}' credentials | tr -d '\r'`
     else
-	    echo "Cannot find ak/sk in credentials file or system environment variables"
-		exit 1
+        echo "Cannot find ak/sk in credentials file or system environment variables"
+	exit 1
     fi
 fi
 
 if [ -z "$SK" ]; then
     if [ -e "credentials" ]; then 
-        SK=`awk -F= '/sk/{print $2}' credentials`
+        SK=`awk -F= '/sk/{print $2}' credentials | tr -d '\r'`
     else
         echo "Cannot find ak/sk in credentials file or system environment variables"
-		exit 1
+	exit 1
     fi
 fi
 
-# prepare microservice.yaml
+if [ -z "$SK" ] || [ -z "$AK" ]; then
+    echo "Cannot find ak/sk in credentials file or system environment variables"
+    exit 1
+fi
+
+# override ak/sk in microservice.yaml
 echo "cse:" > microservice.yaml
 echo "  credentials:" >> microservice.yaml
 echo "    accessKey: $AK" >> microservice.yaml
@@ -30,20 +35,28 @@ echo "    secretKey: $SK" >> microservice.yaml
 echo "    akskCustomCipher: default" >> microservice.yaml
 
 if [ -e "httpproxy.properties" ]; then
-    PROXY_ENABLED=`awk -F= '/proxy.enabled/{print $2}' httpproxy.properties`
-	if [ "$PROXY_ENABLED" == "true" ]; then
-        PROXY_HOST=`awk -F= '/proxy.host/{print $2}' httpproxy.properties`
-        PROXY_PORT=`awk -F= '/proxy.port/{print $2}' httpproxy.properties`
-        PROXY_USER=`awk -F= '/proxy.user/{print $2}' httpproxy.properties`
-        PROXY_PASSWORD=`awk -F= '/proxy.password/{print $2}' httpproxy.properties`
-        echo "  proxy:" >> microservice.yaml
-        echo "    enable: $PROXY_ENABLED" >> microservice.yaml
-        echo "    host: $PROXY_HOST" >> microservice.yaml
-        echo "    port: $PROXY_PORT" >> microservice.yaml
-        echo "    username: $PROXY_USER" >> microservice.yaml
-        echo "    passwd: $PROXY_PASSWORD" >> m icroservice.yaml
+   PROXY_ENABLED=`awk -F= '/proxy.enabled/{print $2}' httpproxy.properties | sed 's/ //g'`
+   if [ "$PROXY_ENABLED" = "true" ]; then
+       PROXY_HOST=`awk -F= '/proxy.host/{print $2}' httpproxy.properties`
+       PROXY_PORT=`awk -F= '/proxy.port/{print $2}' httpproxy.properties`
+       PROXY_USER=`awk -F= '/proxy.user/{print $2}' httpproxy.properties`
+       PROXY_PASSWORD=`awk -F= '/proxy.password/{print $2}' httpproxy.properties`
+       
+       #override proxy settings in microservice.yaml
+       echo "  proxy:" >> microservice.yaml
+       echo "    enable: $PROXY_ENABLED" >> microservice.yaml
+       echo "    host: $PROXY_HOST" >> microservice.yaml
+       echo "    port: $PROXY_PORT" >> microservice.yaml
+       echo "    username: $PROXY_USER" >> microservice.yaml
+       echo "    passwd: $PROXY_PASSWORD" >> m icroservice.yaml
+		
+       mkdir -p ./weather/conf && cp httpproxy.properties ./weather/conf
+       mkdir -p ./weather-beta/conf && cp httpproxy.properties ./weather-beta/conf
+       mkdir -p ./forecast/conf && cp httpproxy.properties ./forecast/conf
     else
-	    
+       rm -rf ./weather/conf
+       rm -rf ./weather-beta/conf
+       rm -rf ./forecast/conf
     fi
 fi
 
