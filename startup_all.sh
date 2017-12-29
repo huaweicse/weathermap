@@ -28,7 +28,8 @@ if [ -z "$SK" ] || [ -z "$AK" ]; then
 fi
 
 # override ak/sk in microservice.yaml
-echo "cse:" > microservice.yaml
+echo "APPLICATION_ID: weathermap" >> microservice.yaml
+echo "cse:" >> microservice.yaml
 echo "  credentials:" >> microservice.yaml
 echo "    accessKey: $AK" >> microservice.yaml
 echo "    secretKey: $SK" >> microservice.yaml
