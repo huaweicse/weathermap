@@ -21,12 +21,6 @@ cse:
   rest:
     address: 0.0.0.0:13090
   credentials:
-    accessKey: BREUUAD7SX01WSQI3CWG
-    secretKey: sJXORXHjmrpDw0AhHX6b0Wo1L2kO5SbUiH4elO8c
+    accessKey: yourak
+    secretKey: yoursk
     akskCustomCipher: default
-  proxy:
-    enable: true
-    host: proxycn2.huawei.com
-    port: 8080
-    username: l00247303
-    passwd: Chongminglingli!1
