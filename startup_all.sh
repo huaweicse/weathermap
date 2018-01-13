@@ -84,7 +84,7 @@ fi
 if [ ! -d "./fusionweather/lib" ]; then
    ln -s ../lib fusionweather/lib
 fi
-
+mkdir -p ./logs
 # start all services
 echo "start weather"
 ./weather/startup.sh
