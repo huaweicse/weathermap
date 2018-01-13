@@ -1,4 +1,4 @@
-FROM java:8-jdk
+FROM 100.125.0.198:20202/hwcse/dockerhub-java:8-jre-alpine
 
 WORKDIR /home/apps/
 ADD target/currentweatherdata-1.0.0.jar .
