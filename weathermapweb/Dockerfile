@@ -4,7 +4,7 @@ WORKDIR /home/apps/
 COPY ./app.js ./
 COPY ./bin ./bin
 COPY ./package.json ./
-COPY ./package-lock.json ./
+#COPY ./package-lock.json ./
 COPY ./public ./public
 COPY ./routes ./routes
 COPY ./shutdown.sh ./
