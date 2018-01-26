@@ -2,6 +2,7 @@ APPLICATION_ID: weathermap
 service_description:
   name: weather
   version: 0.0.1
+  description: Basic version of weather service (excluding UV panel display).
   properties:
     allowCrossApp: false
 cse:

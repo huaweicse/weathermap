@@ -2,6 +2,7 @@ APPLICATION_ID: weathermap
 service_description:
   name: weather
   version: 0.0.2
+  description: Beta version of weather service (including UV panel display).
   properties:
     allowCrossApp: false
 cse:
