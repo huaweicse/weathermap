@@ -28,7 +28,7 @@ public class OpenWeatherMapClient {
 	private static final String DEFAULT = "ShenZhen,CN";
 
 	// Metric: Celsius, Imperial: Fahrenheit
-	private static String URL_HTTP = "https://api.openweathermap.org/data/2.5/forecast?appid=%s&units=metric&q=%s";
+	private static String URL_HTTP = "http://api.openweathermap.org/data/2.5/forecast?appid=%s&units=metric&q=%s";
 
 	private static String URL_HTTPS = "https://api.openweathermap.org/data/2.5/forecast?appid=%s&units=metric&q=%s";
 
