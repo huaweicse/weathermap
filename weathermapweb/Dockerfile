@@ -1,4 +1,4 @@
-From 100.125.0.198:20202/hwcse/nodejs:1.0.1
+From 100.125.0.198:20202/hwcse/nodejs:1.0.2
 
 RUN apk --no-cache add tzdata  && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
