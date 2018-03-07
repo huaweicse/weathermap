@@ -23,9 +23,22 @@ fi
 #swith to home directory
 cd `dirname "$0"`
 
+#check if is startup with source code rather than zip package
+JAR=weather-beta-2.0.0.jar
+if [ ! -e $JAR ]; then
+    JAR=target/$JAR
+    if [ -e microservice.yaml ]; then
+        cp microservice.yaml ./target/
+    fi
+fi
+
+if [ ! -d ../logs ]; then
+    mkdir -p ../logs
+fi
+
 #check java version
 if [ ! -z `$JAVA -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
-    eval $JAVA $JAVA_OPTS -jar ./weather-beta-2.0.0.jar >../logs/weather-beta.console 2>&1 &
+    eval $JAVA $JAVA_OPTS -jar ./$JAR >../logs/weather-beta.console 2>&1 &
 else
     echo 'Java version must be 1.8+.'
 fi

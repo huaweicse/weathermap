@@ -2,7 +2,7 @@
 
 1. 运行环境准备：安装下载JDK1.8+和Node 4.8.4+版本
 
-2. 打开credentials配置租户ak/sk
+2. 打开credentials配置租户ak/sk     (project默认为cn-north-1,如需修改则在credentials增一行project=xxx参数)
 
 3. 执行startup_all.bat脚本
 

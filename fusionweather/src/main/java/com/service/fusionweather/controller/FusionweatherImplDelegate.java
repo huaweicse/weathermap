@@ -1,6 +1,6 @@
 package com.service.fusionweather.controller;
 
-import io.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
+import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import io.vertx.core.json.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

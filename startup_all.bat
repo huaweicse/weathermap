@@ -13,6 +13,12 @@ REM read user credentials
 for /f "tokens=1,2 delims==" %%i in (credentials) do (
   set %%i=%%j
 )
+if "%akskCustomCipher%" == "" (
+    set akskCustomCipher=default
+)
+if "%project%" == "" (
+    set project=cn-north-1
+)
 
 REM prepare cse microservice.yaml
 REM cse:
@@ -26,7 +32,8 @@ echo cse:>> microservice.yaml
 echo   credentials:>> microservice.yaml
 echo     accessKey: %ak%>> microservice.yaml
 echo     secretKey: %sk%>> microservice.yaml
-echo     akskCustomCipher: default>> microservice.yaml
+echo     akskCustomCipher: %akskCustomCipher%>> microservice.yaml
+echo     project: %project%>> microservice.yaml
 
 REM read httpproxy properties
 if not exist "httpproxy.properties" goto nohttpproxy
