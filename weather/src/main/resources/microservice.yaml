@@ -25,3 +25,6 @@ cse:
     accessKey: yourak
     secretKey: yoursk
     akskCustomCipher: default
+    project: cn-north-1
+addressResolver:
+  servers: 8.8.8.8

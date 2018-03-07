@@ -23,9 +23,22 @@ fi
 #switch to home directory
 cd `dirname "$0"`
 
+#check if is startup with source code rather than zip package
+JAR=forecast-1.0.0.jar
+if [ ! -e $JAR ]; then
+    JAR=target/$JAR
+    if [ -e microservice.yaml ]; then
+        cp microservice.yaml ./target/
+    fi
+fi
+
+if [ ! -d ../logs ]; then
+    mkdir -p ../logs
+fi
+
 #check java version
 if [ ! -z `$JAVA -version 2>&1 | grep 'java version' | awk '{print $3}' | egrep '1.8.\d*'` ]; then
-    eval $JAVA $JAVA_OPTS -jar ./forecast-1.0.0.jar >../logs/forecast.console 2>&1 &
+    eval $JAVA $JAVA_OPTS -jar ./$JAR >../logs/forecast.console 2>&1 &
 else
     echo 'Java version must be 1.8+.'
 fi

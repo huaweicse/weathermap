@@ -6,7 +6,7 @@
 # check sk/sk
 if [ -z "$AK" ]; then
     if [ -e "credentials" ]; then 
-        AK=`awk -F= '/ak/{print $2}' credentials | tr -d '\r'`
+        AK=`awk -F= '/ak=/{print $2}' credentials | tr -d '\r'`
     else
         echo "Cannot find ak/sk in credentials file or system environment variables"
 	exit 1
@@ -15,11 +15,24 @@ fi
 
 if [ -z "$SK" ]; then
     if [ -e "credentials" ]; then 
-        SK=`awk -F= '/sk/{print $2}' credentials | tr -d '\r'`
+        SK=`awk -F= '/sk=/{print $2}' credentials | tr -d '\r'`
     else
         echo "Cannot find ak/sk in credentials file or system environment variables"
 	exit 1
     fi
+fi
+
+if [ -e "credentials" ]; then
+    CIPHER=`awk -F= '/akskCustomCipher=/{print $2}' credentials | tr -d '\r'`
+    PROJECT=`awk -F= '/project=/{print $2}' credentials | tr -d '\r'`
+fi
+
+#check cipher script & region project
+if [ -z "$CIPHER" ]; then
+    CIPHER=default
+fi
+if [ -z "$PROJECT" ]; then
+    PROJECT=cn-north-1
 fi
 
 if [ -z "$SK" ] || [ -z "$AK" ]; then
@@ -33,7 +46,8 @@ echo "cse:" >> microservice.yaml
 echo "  credentials:" >> microservice.yaml
 echo "    accessKey: $AK" >> microservice.yaml
 echo "    secretKey: $SK" >> microservice.yaml
-echo "    akskCustomCipher: default" >> microservice.yaml
+echo "    akskCustomCipher: $CIPHER" >> microservice.yaml
+echo "    project: $PROJECT" >> microservice.yaml
 
 if [ -e "httpproxy.properties" ]; then
    PROXY_ENABLED=`awk -F= '/proxy.enabled/{print $2}' httpproxy.properties | sed 's/ //g'`
