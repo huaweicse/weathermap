@@ -21,4 +21,5 @@ fi
 cd `dirname "$0"`
 
 mkdir -p ../logs
+npm install >../logs/weathermapweb.log 2>&1 &
 npm start >../logs/weathermapweb.log 2>&1 &
