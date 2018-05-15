@@ -26,7 +26,7 @@ inputs:
     default: access key
     type: string
   my_secret_key:
-    default: #secret key
+    default: secret key
     type: string
 node_templates:
 

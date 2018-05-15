@@ -21,10 +21,10 @@ inputs:
     default: 0.5Gi
     type: string
   my_access_key:
-    default: #access key
+    default: access key
     type: string
   my_secret_key:
-    default: #secret key
+    default: secret key
     type: string
 node_templates:
 
