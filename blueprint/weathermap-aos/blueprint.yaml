@@ -4,14 +4,14 @@ inputs:
     default: weathermapapp
     type: string
   forecast_service_container_image:
-    default: 100.125.0.198:20202/qinling/forecast:2.1.6
+    default: 100.125.0.198:20202/qinling/forecast:2.1.7
     type: string
   weather_service_container_image:
-    default: 100.125.0.198:20202/qinling/weather:2.1.6
+    default: 100.125.0.198:20202/qinling/weather:2.1.7
   weather_beta_service_container_image:
-    default: 100.125.0.198:20202/qinling/weather-beta:2.1.6
+    default: 100.125.0.198:20202/qinling/weather-beta:2.1.7
   fusionweather_service_container_image:
-    default: 100.125.0.198:20202/qinling/fusionweather:2.1.6
+    default: 100.125.0.198:20202/qinling/fusionweather:2.1.7
   weathermapweb_service_container_image:
     default: 100.125.0.198:20202/qinling/weathermapweb:2.1.1
   limit_cpu:
@@ -19,12 +19,6 @@ inputs:
     type: string
   limit_memory:
     default: 0.5Gi
-    type: string
-  my_access_key:
-    default: access key
-    type: string
-  my_secret_key:
-    default: secret key
     type: string
 node_templates:
 
@@ -40,9 +34,6 @@ node_templates:
           relationship: fusionstage.relationships.PackageConsistsOf
       - volume:
           node: forecast-srv-path
-          relationship: fusionstage.relationships.AttachesTo
-      - volume:
-          node: weathermap-credential
           relationship: fusionstage.relationships.AttachesTo
   forecast-srv-image:
     type: fusionstage.nodes.ContainerComponent
@@ -63,8 +54,6 @@ node_templates:
             policy:
               logs:
                 rotate: "Daily"
-          - mountPath: /opt/CSE/etc/cipher
-            name: weathermap-credential
         ports:
           - containerPort: 13091
   forecast-srv-path:
@@ -86,9 +75,6 @@ node_templates:
       - volume:
           node: weather-srv-path
           relationship: fusionstage.relationships.AttachesTo
-      - volume:
-          node: weathermap-credential
-          relationship: fusionstage.relationships.AttachesTo
   weather-srv-image:
     type: fusionstage.nodes.ContainerComponent
     properties:
@@ -108,8 +94,6 @@ node_templates:
             policy:
               logs:
                 rotate: "Daily"
-          - mountPath: /opt/CSE/etc/cipher
-            name: weathermap-credential
         ports:
           - containerPort: 13090
   weather-srv-path:
@@ -131,9 +115,6 @@ node_templates:
       - volume:
           node: weather-beta-srv-path
           relationship: fusionstage.relationships.AttachesTo
-      - volume:
-          node: weathermap-credential
-          relationship: fusionstage.relationships.AttachesTo
   weather-beta-srv-image:
     type: fusionstage.nodes.ContainerComponent
     properties:
@@ -153,8 +134,6 @@ node_templates:
             policy:
               logs:
                 rotate: "Daily"
-          - mountPath: /opt/CSE/etc/cipher
-            name: weathermap-credential
         ports:
           - containerPort: 13093
   weather-beta-srv-path:
@@ -176,9 +155,6 @@ node_templates:
       - volume:
           node: fusionweather-srv-path
           relationship: fusionstage.relationships.AttachesTo
-      - volume:
-          node: weathermap-credential
-          relationship: fusionstage.relationships.AttachesTo
   fusionweather-srv-image:
     type: fusionstage.nodes.ContainerComponent
     properties:
@@ -198,8 +174,6 @@ node_templates:
             policy:
               logs:
                 rotate: "Daily"
-          - mountPath: /opt/CSE/etc/cipher
-            name: weathermap-credential
         ports:
           - containerPort: 13092
         serviceSpec:
@@ -226,9 +200,6 @@ node_templates:
       - volume:
           node: weathermapweb-srv-path
           relationship: fusionstage.relationships.AttachesTo
-      - volume:
-          node: weathermap-credential
-          relationship: fusionstage.relationships.AttachesTo
   weathermapweb-srv-image:
     type: fusionstage.nodes.ContainerComponent
     properties:
@@ -248,8 +219,6 @@ node_templates:
             policy:
               logs:
                 rotate: "Daily"
-          - mountPath: /opt/CSE/etc/cipher
-            name: weathermap-credential
         ports:
           - containerPort: 3000
         env:
@@ -267,25 +236,6 @@ node_templates:
     properties:
       hostPath: /var/paas/sys/log/weathermap/weathermapweb-website
       name: weathermapweb-srv-path
-
-#### credential
-  weathermap-credential:
-    type: fusionstage.nodes.ConfigMapVolume
-    properties:
-      name: weathermap-credential
-      configMapSpec:
-        - name: certificate.yaml
-          value:
-            concat:
-              - |
-                cse:
-                  credentials:
-              - "    accessKey: "
-              - {get_input: my_access_key}
-              - "\n    secretKey: "
-              - {get_input: my_secret_key}
-              - "\n    akskCustomCipher: default"
-      createNew: true
 
 policies:
   forecast-service-policies:
