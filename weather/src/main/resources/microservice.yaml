@@ -21,10 +21,10 @@ cse:
       serverUri: https://cse.cn-north-1.myhwclouds.com:443
   rest:
     address: 0.0.0.0:13090
-  credentials:
-    accessKey: yourak
-    secretKey: yoursk
-    akskCustomCipher: default
-    project: cn-north-1
+#  credentials:
+#    accessKey: yourak
+#    secretKey: yoursk
+#    akskCustomCipher: default
+#    project: cn-north-1
 addressResolver:
   servers: 8.8.8.8
