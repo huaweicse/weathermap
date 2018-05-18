@@ -4,14 +4,14 @@ inputs:
     default: weathermapapp
     type: string
   forecast_service_container_image:
-    default: 100.125.0.198:20202/qinling/forecast:2.1.7
+    default: 100.125.0.198:20202/qinling/forecast:2.1.10
     type: string
   weather_service_container_image:
-    default: 100.125.0.198:20202/qinling/weather:2.1.7
+    default: 100.125.0.198:20202/qinling/weather:2.1.10
   weather_beta_service_container_image:
-    default: 100.125.0.198:20202/qinling/weather-beta:2.1.7
+    default: 100.125.0.198:20202/qinling/weather-beta:2.1.10
   fusionweather_service_container_image:
-    default: 100.125.0.198:20202/qinling/fusionweather:2.1.7
+    default: 100.125.0.198:20202/qinling/fusionweather:2.1.10
   weathermapweb_service_container_image:
     default: 100.125.0.198:20202/qinling/weathermapweb:2.1.1
   limit_cpu:
