@@ -21,6 +21,7 @@ CSE Spring MVC Server
 ## 访问边缘服务
 
 http://localhost:13080/api/forecast/forecast/show
+
 http://localhost:13080/api/weather/weather/show
 
 其中：/api/{microservice-name}/{rest-path}
