@@ -20,6 +20,7 @@
 		<module>forecast</module>
 		<module>fusionweather</module>
 		<module>weather-beta</module>
+		<module>edge</module>
 	</modules>
 
 	<build>
