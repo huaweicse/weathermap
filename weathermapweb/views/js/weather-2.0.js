@@ -2,17 +2,16 @@
 
     var myApp = angular.module("app", ["chart.js", 'ui.bootstrap']);
 
-    myApp.controller("LineCtrl", function ($scope, $http, $timeout, $filter, $window) {
+    myApp.controller("LineCtrl", function ($scope, $http, $timeout, $filter, $window, $location) {
 
-        console.log("--- " + $window.localStorage.cityName);
         $scope.globalData = {
-            city: $window.localStorage.cityName || "Shenzhen",
-            country: $window.localStorage.countryName || "CN",
+            city: "shenzhen",
+            country: "CN",
             tempType: "C",
-            text1: "当前城市 Shenzhen, CN",
-            text2: "未来36小时预报 Shenzhen, CN",
-            text3: "未来5天预报列表 Shenzhen, CN",
-            text4: "未来5天预报趋势图 Shenzhen, CN",
+            text1: "当前城市",
+            text2: "未来36小时预报",
+            text3: "未来5天预报列表",
+            text4: "未来5天预报趋势图",
             text5: "紫外线指数和暴晒级数的对应关系:",
             text6: "0-2: 低量（适宜）",
             text7: "3-5: 中量（外出需遮阳帽或太阳镜）",
@@ -54,7 +53,7 @@
         $scope.searchModel = {
             cityNameInput: "",
             searchClickFn: function () {
-                $window.localStorage.cityName = $scope.searchModel.cityNameInput;
+                $location.search("city", $scope.searchModel.cityNameInput);
                 achieveAllWeatherData($scope.searchModel.cityNameInput);
             }
         };
@@ -149,11 +148,17 @@
             isBeta: false
         };
 
-        function achieveAllWeatherData(vCityName) {
+        function achieveAllWeatherData(v_c) {
+            var vCityName = v_c || "shenzhen";;
+            if (!$location.search().city) {
+                $location.search("city", vCityName);
+            } else {
+                vCityName = $location.search().city;
+            }
             $http({
                 method: 'GET',
                 url: "/weathermapweb/ui/fusionweatherdata",
-                params: {"city": vCityName, user: getUrlParam("user")},
+                params: {"city": vCityName},
                 headers: {"demo": "2.0"},
                 timeout: 5000
             }).then(function (response) {
@@ -292,12 +297,8 @@
                     $scope.uviDataModel.isBeta = rCurrentWeather.uviDateISO != null;
 
                     // location
-                    $scope.globalData.city = rForecastWeather.cityName || rCurrentWeather.cityName || "Shenzhen";
-                    $scope.globalData.country = rForecastWeather.country || rCurrentWeather.country || "CN";
-
-                    // localStorage
-                    $window.localStorage.cityName = $scope.globalData.city;
-                    $window.localStorage.countryName = $scope.globalData.country;
+                    $scope.globalData.city = rForecastWeather.cityName || rCurrentWeather.cityName || "";
+                    $scope.globalData.country = rForecastWeather.country || rCurrentWeather.country || "";
 
                     $scope.globalData.refreshText();
 
@@ -310,28 +311,6 @@
 
         function toFahrenheit(num) {
             return (num * 1.8 + 32).toFixed(2);
-        }
-
-        function getUrlParam(paraName) {
-            var url = document.location.toString();
-            var arrObj = url.split("?");
-
-            if (arrObj.length > 1) {
-                var arrPara = arrObj[1].split("&");
-                var arr;
-
-                for (var i = 0; i < arrPara.length; i++) {
-                    arr = arrPara[i].split("=");
-
-                    if (arr != null && arr[0] == paraName) {
-                        return arr[1];
-                    }
-                }
-                return "";
-            }
-            else {
-                return "";
-            }
         }
 
         achieveAllWeatherData($scope.globalData.city);
