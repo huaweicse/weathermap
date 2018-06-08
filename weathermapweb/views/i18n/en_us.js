@@ -1,4 +1,4 @@
-{
+var globalLanguageEn = {
 	"weatherDemo": "Weather forecast CSE-Demo-2.0",
 	"cityWeather": "City Weather",
 	"search": "Search",
@@ -31,5 +31,6 @@
 	"pressurePieChart": "Pressure pie chart",
 	"pressureCurve": "Pressure curve",
 	"prePieChart": "Precipitation pie chart",
-	"preCurve": "Precipitation curve"
+	"preCurve": "Precipitation curve",
+	"noData": "Failed to achieve the weather data"
 }

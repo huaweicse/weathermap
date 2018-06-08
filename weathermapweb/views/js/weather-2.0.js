@@ -1,80 +1,10 @@
 (function () {
     var myApp = angular.module("app", ['chart.js', 'ui.bootstrap', 'pascalprecht.translate']);
     myApp.config(["$translateProvider", function($translateProvider) {
-        $translateProvider.translations('en_us', {
-            "weatherDemo": "Weather forecast CSE-Demo-2.0",
-            "cityWeather": "City Weather",
-            "search": "Search",
-            "weatherDetails": "Current Weather Details And Forecast For The Next 5 Days",
-            "yourCity": "Your city name (all fight)",
-            "currentUV": "Current city UV rays",
-            "releaseTime": "Release Time",
-            "index": "Index",
-            "highestTemp": "The highest temperature",
-            "lowestTemp": "The lowest temperature",
-            "baseOn": "Based on",
-            "cse": "CSE",
-            "dataSource": "development,the weather data comes from",
-            "currentCity": "Current City",
-            "weather36H":"36 hours forecast for the future ",
-            "weather3D":"The next 3 days forecast list",
-            "weather5D":"The next 5 days forecast list",
-            "map3D":"Forecast chart of the next 3 days",
-            "map5D":"Forecast chart of the next 5 days",
-            "UVIndexAndExposureLevel":"Correspondence between UV index and exposure level:",
-            "lowVolume":"0-2: Low volume (suitable)",
-            "amount":"3-5: In the amount (go out hat or sunglasses)",
-            "highVolume":"6-7: High volume (sunscreen to be rubbed)",
-            "excess":"8-10: Excess (Avoid activities under the hot sun)",
-            "excess11":"> 11: Excess (try not to go out)",
-            "tempPieChart":"Temperature pie chart",
-            "tempCurve":"Temperature curve",
-            "windPieChart":"Wind speed pie chart",
-            "windSpeedCurve":"Wind speed curve",
-            "pressurePieChart":"Pressure pie chart",
-            "pressureCurve":"Pressure curve",
-            "prePieChart":"Precipitation pie chart",
-            "preCurve":"Precipitation curve",
-            "noData":"Failed to achieve the weather data"
-        });
-        $translateProvider.translations('zh_cn', {
-            "weatherDemo": "天气预报 CSE-Demo-2.0",
-            "cityWeather": "城市天气预报",
-            "search": "搜索",
-            "weatherDetails": "当前天气详情及未来5天的天气预报",
-            "yourCity": "您的城市名称（全拼）",
-            "currentUV": "当前城市紫外线",
-            "releaseTime": "发布时间",
-            "index": "指数",
-            "highestTemp": "最高温度",
-            "lowestTemp": "最低温度",
-            "baseOn": "基于",
-            "cse": "微服务引擎（CSE）",
-            "dataSource": "开发，天气数据来源于",
-            "currentCity": "当前城市",
-            "weather36H":"未来36小时预报 ",
-            "weather3D":"未来3天预报列表",
-            "weather5D":"未来5天预报列表",
-            "map3D":"未来3天预报趋势图",
-            "map5D":"未来5天预报趋势图",
-            "UVIndexAndExposureLevel":"紫外线指数和暴晒级数的对应关系:",
-            "lowVolume":"0-2: 低量（适宜）",
-            "amount":"3-5: 中量（外出需遮阳帽或太阳镜）",
-            "highVolume":"6-7: 高量（需涂擦防晒霜）",
-            "excess":"8-10: 过量（避免在烈日下活动）",
-            "excess11":">11: 超量（尽量不要外出）",
-            "tempPieChart":"温度饼图",
-            "tempCurve":"温度曲线",
-            "windPieChart":"风速饼图",
-            "windSpeedCurve":"风速曲线",
-            "pressurePieChart":"气压饼图",
-            "pressureCurve":"气压曲线",
-            "prePieChart":"降水量饼图",
-            "preCurve":"降水量曲线",
-            "noData":"获取天气数据失败"
-        });
+        $translateProvider.translations('en_us', globalLanguageEn);
+        $translateProvider.translations('zh_cn', globalLanguageZh);
         if (!window.localStorage.getItem("lang")) {
-            window.localStorage.setItem("lang", navigator.language.toLowerCase() == "en-us" ? "en_us" : "zh_cn");
+            window.localStorage.setItem("lang", navigator.language.toLowerCase() == "en_us" ? "en_us" : "zh_cn");
         }
         var lang = window.localStorage.getItem("lang");
         $translateProvider.preferredLanguage(lang);
@@ -98,20 +28,22 @@
 
     myApp.controller("LineCtrl", function ($scope, $http, $timeout, $filter, $window, $translate, T, $location) {
 
-        $scope.lang = window.localStorage.getItem("lang") == "zh_cn"?"English":"中文";
-        $scope.togglelang = function(){
-            if($translate.use()=="zh_cn"){
-                $translate.use("en_us");
-                window.localStorage.setItem("lang","en_us");
-                $scope.lang="中文";
-                window.location.reload();
-            }else{
-                $translate.use("zh_cn");
-                window.localStorage.setItem("lang","zh_cn");
-                $scope.lang="English";
-                window.location.reload();
-            }
-        }
+        $scope.toggleLangModel = {
+            lang: window.localStorage.getItem("lang") == "zh_cn" ? "中文" : "English",
+            click: function(la) {
+               if (la == "en_us" && $translate.use() != "en_us") {
+                   $translate.use("en_us");
+                   window.localStorage.setItem("lang","en_us");
+                   $scope.toggleLangModel.lang="English";
+                   $window.location.reload();
+               } else if (la == "zh_cn" && $translate.use() != "zh_cn") {
+                   $translate.use("zh_cn");
+                   window.localStorage.setItem("lang","zh_cn");
+                   $scope.toggleLangModel.lang="中文";
+                   $window.location.reload();
+               }
+           }
+        };
 
         $scope.globalData = {
             city: "shenzhen",
@@ -265,8 +197,7 @@
             }
             $http({
                 method: 'GET',
-                //url: "/weathermapweb/ui/fusionweatherdata",
-                url: "./mock/fusion_beta.json",
+                url: "/weathermapweb/ui/fusionweatherdata",
                 params: {"city": vCityName},
                 headers: {"demo": "2.0"},
                 timeout: 5000

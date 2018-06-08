@@ -11,10 +11,18 @@
     <div class="topic">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <h1>{{'cityWeather'|translate}}</h1>
                 </div>
-                <div class="col-md-offset-2 col-md-2">
+                <div class="col-md-offset-4 col-md-2">
+                    <div class="btn-group top-button-div">
+                        <label class="btn btn-default" ng-model="toggleLangModel.lang" uib-btn-radio="'中文'"
+                               ng-click="toggleLangModel.click('zh_cn')">中文</label>
+                        <label class="btn btn-default" ng-model="toggleLangModel.lang" uib-btn-radio="'English'"
+                               ng-click="toggleLangModel.click('en_us')">English</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
                     <div class="btn-group top-button-div">
                         <label class="btn btn-default" ng-model="temperatureTypeModel.dataText" uib-btn-radio="'°C'"
                                ng-click="temperatureTypeModel.changeClickFn('C')">°C</label>
@@ -42,7 +50,7 @@
             <div class="row text-center sub-text-div">
                 <h3>{{'weatherDetails'|translate}}</h3>
             </div>
-            <div class="row">
+            <div class="row margin-bottom-30">
                 <div class="col-md-3">
                     <h4 ng-bind="globalData.text1"></h4>
                     <div>
@@ -181,7 +189,6 @@
     <div id="footer" class="container">
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="navbar-inner navbar-content-center">
-                <p class="muted credit foot-lanuage" ng-click="togglelang()">{{lang}}</p>
                 <p class="muted credit foot-txt-div">
                     {{'baseOn'|translate}}
                     <a href="http://www.huaweicloud.com/product/cse.html" target='_blank'>{{'cse'|translate}}</a>
@@ -199,6 +206,8 @@
     <script src="./lib/angular-translate/angular-translate-loader-static-files.min.js"></script>
     <script src="./lib/Chart.js-2.7.1/Chart.min.js"></script>
     <script src="./lib/angular-chart.js-1.1.1/angular-chart.min.js"></script> 
-    <script src="./lib/ui-bootstrap-2.5.0/ui-bootstrap-tpls-2.5.0.min.js"></script> 
+    <script src="./lib/ui-bootstrap-2.5.0/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="./i18n/en_us.js"></script>
+    <script src="./i18n/zh_cn.js"></script>
     <script src="js/weather-2.0.js"></script>
 </html>
