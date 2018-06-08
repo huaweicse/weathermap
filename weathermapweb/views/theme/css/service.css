@@ -63,7 +63,12 @@ body, table {
     float: right;
     font-size: smaller;
 }
-
+.foot-lanuage {
+    margin: 15px 20px;
+    float: left;
+    font-size: smaller;
+    cursor: pointer;
+}
 .font-smaller {
     font-size: smaller
 }
