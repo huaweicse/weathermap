@@ -27,3 +27,11 @@ cse:
 #    project: cn-north-1
 #addressResolver:   ## windows下，域名无法解析，可配置addressResolver
 #  servers: 8.8.8.8
+
+# avoid conflict with black list
+servicecomb:
+  service:
+    registry:
+      instance:
+        empty:
+          protection: false
