@@ -1,0 +1,319 @@
+tosca_definitions_version: fusionstage_tosca_version_2_1
+inputs:
+  monitor_group:
+    default: weathermapapp
+    type: string
+  forecast_service_container_image:
+    default: 100.125.0.31:20202/default/forecast:2.0.0
+    type: string
+  weather_service_container_image:
+    default: 100.125.0.31:20202/default/weather:2.0.0
+  weather_beta_service_container_image:
+    default: 100.125.0.31:20202/default/weather-beta:2.0.0
+  fusionweather_service_container_image:
+    default: 100.125.0.31:20202/default/fusionweather:2.0.0
+  weathermapweb_service_container_image:
+    default: 100.125.0.31:20202/default/weathermapweb:1.0
+  mesher_container_image:
+    default: 100.125.0.31:20202/hwcse/cse-mesher:latest
+  limit_cpu:
+    default: 500m
+    type: string
+  limit_memory:
+    default: 0.5Gi
+    type: string
+node_templates:
+
+  #### forecast
+  forecast-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      name: forecast-service
+      type: container
+    requirements:
+      - package:
+          node: forecast-srv-image
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: forecast-srv-path
+          relationship: fusionstage.relationships.AttachesTo
+  forecast-srv-image:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      deploy: true
+      package:
+        image: {get_input: forecast_service_container_image}
+        resourceSpec:
+          limit:
+            cpu: {get_input: limit_cpu}
+            memory: {get_input: limit_memory}
+          request:
+            cpu: 300m
+            memory: 500Mi
+        volumes:
+          - mountPath: /home/logs
+            name: forecast-srv-path
+            policy:
+              logs:
+                rotate: "Daily"
+        ports:
+          - containerPort: 13091
+  forecast-srv-path:
+    type: fusionstage.nodes.LocalVolume
+    properties:
+      hostPath: /var/paas/sys/log/weathermap/forecast-service
+      name: forecast-srv-path
+
+  #### weather
+  weather-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      name: weather-service
+      type: container
+    requirements:
+      - package:
+          node: weather-srv-image
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: weather-srv-path
+          relationship: fusionstage.relationships.AttachesTo
+  weather-srv-image:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      deploy: true
+      package:
+        image: {get_input: weather_service_container_image}
+        resourceSpec:
+          limit:
+            cpu: {get_input: limit_cpu}
+            memory: {get_input: limit_memory}
+          request:
+            cpu: 300m
+            memory: 500Mi
+        volumes:
+          - mountPath: /home/logs
+            name: weather-srv-path
+            policy:
+              logs:
+                rotate: "Daily"
+        ports:
+          - containerPort: 13090
+  weather-srv-path:
+    type: fusionstage.nodes.LocalVolume
+    properties:
+      hostPath: /var/paas/sys/log/weathermap/weather-service
+      name: weather-srv-path
+
+  #### weather-beta
+  weather-beta-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      name: weather-beta-service
+      type: container
+    requirements:
+      - package:
+          node: weather-beta-srv-image
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: weather-beta-srv-path
+          relationship: fusionstage.relationships.AttachesTo
+  weather-beta-srv-image:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      deploy: true
+      package:
+        image: {get_input: weather_beta_service_container_image}
+        resourceSpec:
+          limit:
+            cpu: {get_input: limit_cpu}
+            memory: {get_input: limit_memory}
+          request:
+            cpu: 300m
+            memory: 500Mi
+        volumes:
+          - mountPath: /home/logs
+            name: weather-beta-srv-path
+            policy:
+              logs:
+                rotate: "Daily"
+        ports:
+          - containerPort: 13093
+  weather-beta-srv-path:
+    type: fusionstage.nodes.LocalVolume
+    properties:
+      hostPath: /var/paas/sys/log/weathermap/weather-beta-service
+      name: weather-beta-srv-path
+
+  #### fusionweather
+  fusionweather-service:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      name: fusionweather-service
+      type: container
+    requirements:
+      - package:
+          node: fusionweather-srv-image
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: fusionweather-srv-path
+          relationship: fusionstage.relationships.AttachesTo
+  fusionweather-srv-image:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      deploy: true
+      package:
+        image: {get_input: fusionweather_service_container_image}
+        resourceSpec:
+          limit:
+            cpu: {get_input: limit_cpu}
+            memory: {get_input: limit_memory}
+          request:
+            cpu: 300m
+            memory: 500Mi
+        volumes:
+          - mountPath: /home/logs
+            name: fusionweather-srv-path
+            policy:
+              logs:
+                rotate: "Daily"
+        ports:
+          - containerPort: 13092
+        serviceSpec:
+          type: ClusterIP
+          ports:
+            - port: 13092
+              targetPort: 13092
+  fusionweather-srv-path:
+    type: fusionstage.nodes.LocalVolume
+    properties:
+      hostPath: /var/paas/sys/log/weathermap/fusionweather-service
+      name: fusionweather-srv-path
+
+  #### weathermapweb
+  weathermapweb-website:
+    type: fusionstage.nodes.StatelessApplication
+    properties:
+      name: weathermapweb-website
+      type: container
+    requirements:
+      - package:
+          node: weathermapweb-srv-image
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - package:
+          node: mesher-image
+          relationship: fusionstage.relationships.PackageConsistsOf
+      - volume:
+          node: weathermapweb-srv-path
+          relationship: fusionstage.relationships.AttachesTo
+      - volume:
+          node: weathermap-mesher
+          relationship: fusionstage.relationships.AttachesTo
+  weathermapweb-srv-image:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      deploy: true
+      package:
+        image: {get_input: weathermapweb_service_container_image}
+        resourceSpec:
+          limit:
+            cpu: {get_input: limit_cpu}
+            memory: {get_input: limit_memory}
+          request:
+            cpu: 300m
+            memory: 500Mi
+        volumes:
+          - mountPath: /home/logs
+            name: weathermapweb-srv-path
+            policy:
+              logs:
+                rotate: "Daily"
+        ports:
+          - containerPort: 3000
+        env:
+          - name: HTTP_PROXY_HOST
+            value: 127.0.0.1
+          - name: HTTP_PROXY_PORT
+            value: 30101
+          - name: SERVICE_ADDR
+            value: fusionweather
+  mesher-image:
+    type: fusionstage.nodes.ContainerComponent
+    properties:
+      deploy: true
+      package:
+        image: {get_input: mesher_container_image}
+        resourceSpec:
+          limit:
+            cpu: {get_input: limit_cpu}
+            memory: {get_input: limit_memory}
+          request:
+            cpu: 300m
+            memory: 500Mi
+        volumes:
+          - mountPath: /home/logs
+            name: weathermapweb-srv-path
+            policy:
+              logs:
+                rotate: "Daily"
+          - mountPath: /tmp
+            name: weathermap-mesher
+        ports:
+          - containerPort: 3000
+        env:
+          - name: SPECIFIC_ADDR
+            value: 127.0.0.1:3000
+        serviceSpec:
+          ports:
+            - port: 30101
+              targetPort: 30101
+          type: NodePort
+  weathermapweb-srv-path:
+    type: fusionstage.nodes.LocalVolume
+    properties:
+      hostPath: /var/paas/sys/log/weathermap/weathermapweb-website
+      name: weathermapweb-srv-path
+
+#### credential
+  weathermap-mesher:
+    type: fusionstage.nodes.ConfigMapVolume
+    properties:
+      name: weathermap-mesher
+      configMapSpec:
+        - name: microservice.yaml
+          value: |
+            APPLICATION_ID: weathermap
+            service_description:
+              name: weathermapweb
+      createNew: true
+
+policies:
+  forecast-service-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitor_group}
+    targets:
+      - forecast-service
+  weather-service-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitor_group}
+    targets:
+      - weather-service
+  weather-beta-service-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitor_group}
+    targets:
+      - weather-beta-service
+  fusionweather-service-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitor_group}
+    targets:
+      - fusionweather-service
+  weathermapweb-website-policies:
+    type: fusionstage.policies.APMPolicy
+    properties:
+      name: {get_input: monitor_group}
+    targets:
+      - weathermapweb-website
