@@ -20,4 +20,4 @@ fi
 #swith to work directory
 cd `dirname "$0"`
 mkdir ../logs
-npm start
+npm start >../logs/weathermapweb.log 2>&1
