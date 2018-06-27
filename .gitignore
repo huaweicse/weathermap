@@ -3,14 +3,12 @@
 .classpath
 .idea
 
-*.jar
 *.class
 *.iml
 *.log
 *.dat
 *.log.zip
 
-target
 webroot
 node_modules
 logs
