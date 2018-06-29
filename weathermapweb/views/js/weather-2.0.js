@@ -200,7 +200,7 @@
                 url: "/weathermapweb/ui/fusionweatherdata",
                 params: {"city": vCityName},
                 headers: {"demo": "2.0"},
-                timeout: 5000
+                timeout: 20000
             }).then(function (response) {
                     console.log(response);
 
