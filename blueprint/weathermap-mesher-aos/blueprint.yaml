@@ -20,7 +20,7 @@ inputs:
   weather_service_container_image:
     default: 'swr.cn-north-1.myhuaweicloud.com/qinling/weather:2.1.13'
   weathermapweb_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/weathermapweb:2.1.7'
+    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/weathermapweb:2.1.8'
 node_templates:
 
   #### forecast
