@@ -20,97 +20,13 @@
 		<module>forecast</module>
 		<module>fusionweather</module>
 		<module>weather-beta</module>
+		<module>dist</module>
 	</modules>
-
-	<build>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>target/lib</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>make-vm-zip</id>
-						<phase>install</phase>
-						<configuration>
-							<target>
-								<zip destfile="target/${build.finalName}.zip">
-
-									<zipfileset dir="forecast/target/lib" prefix="lib" />
-									
-									<zipfileset dir="forecast/target" prefix="forecast"
-										includes="*.jar" />
-									<zipfileset dir="forecast/" prefix="forecast"
-										includes="startup.sh" />
-									<zipfileset dir="forecast/" prefix="forecast"
-										includes="shutdown.sh" />
-									<zipfileset dir="forecast/" prefix="forecast"
-										includes="startup.bat" />
-
-									<zipfileset dir="weather/target" prefix="weather"
-										includes="*.jar" />
-									<zipfileset dir="weather/" prefix="weather"
-										includes="startup.sh" />
-									<zipfileset dir="weather/" prefix="weather"
-										includes="shutdown.sh" />
-									<zipfileset dir="weather/" prefix="weather"
-										includes="startup.bat" />
-
-									<zipfileset dir="weather-beta/target" prefix="weather-beta"
-										includes="*.jar" />
-									<zipfileset dir="weather-beta/" prefix="weather-beta"
-										includes="startup.sh" />
-									<zipfileset dir="weather-beta/" prefix="weather-beta"
-										includes="shutdown.sh" />
-									<zipfileset dir="weather-beta/" prefix="weather-beta"
-										includes="startup.bat" />
-
-									<zipfileset dir="fusionweather/target" prefix="fusionweather"
-										includes="*.jar" />
-									<zipfileset dir="fusionweather/" prefix="fusionweather"
-										includes="startup.sh" />
-									<zipfileset dir="fusionweather/" prefix="fusionweather"
-										includes="shutdown.sh" />
-									<zipfileset dir="fusionweather/" prefix="fusionweather"
-										includes="startup.bat" />
-
-									<zipfileset dir="weathermapweb/" prefix="weathermapweb" />
-
-									<zipfileset dir="." includes="startup_all.sh" />
-									<zipfileset dir="." includes="shutdown_all.sh" />
-									<zipfileset dir="." includes="startup_all.bat" />
-									<zipfileset dir="." includes="credentials" />
-									<zipfileset dir="." includes="httpproxy.properties" />
-									
-								</zip>
-							</target>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-	</build>
-
+	
+	<repositories>
+		<repository>
+			<id>huaweicse</id>
+			<url>http://maven.huaweicse.com/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
 </project>
