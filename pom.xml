@@ -20,6 +20,7 @@
 		<module>forecast</module>
 		<module>fusionweather</module>
 		<module>weather-beta</module>
+		<module>weathermapweb</module>
 		<module>dist</module>
 	</modules>
 	
