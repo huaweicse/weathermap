@@ -89,3 +89,13 @@ h4 {color:black;}
     font-weight: bolder;
     color: #FF0000;
 }
+
+.beta-line {
+    background-color: #f8f8f8;
+}
+
+.text1{
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e7e7e7;
+}
