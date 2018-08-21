@@ -43,26 +43,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <h4 ng-bind="globalData.text1"></h4>
-                    <div>
-                        <span><img ng-src="./theme/image/{{weatherTableModel.image}}.png"></span>
-                        <span class="weather-temp-txt weather-text-shadow" ng-bind="weatherTableModel.temp"></span>
-                    </div>
-                    <p ng-bind="weatherTableModel.weather"></p>
-                    <table class="table table-striped table-bordered">
-                        <caption ng-bind="weatherTableModel.time"></caption>
-                        <tbody>
-                        <tr ng-repeat="item in weatherTableModel.data">
-                            <td ng-bind="item.name"></td>
-                            <td ng-bind="item.value"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div ng-show="uviDataModel.isBeta">
+				
+				    <div ng-show="uviDataModel.isBeta">
                         <table class="table table-striped table-bordered">
                             <caption>
-                                当前城市紫外线
-                                <span class="uvi-new-span">NEW</span>
+                                <h4>当前城市紫外线  <span class="uvi-new-span">NEW</span></h4>
                             </caption>
                             <thead>
                             <tr>
@@ -87,6 +72,22 @@
                         </div>
 
                     </div>
+				
+                    <h4 ng-bind="globalData.text1"></h4>
+                    <div>
+                        <span><img ng-src="./theme/image/{{weatherTableModel.image}}.png"></span>
+                        <span class="weather-temp-txt weather-text-shadow" ng-bind="weatherTableModel.temp"></span>
+                    </div>
+                    <p ng-bind="weatherTableModel.weather"></p>
+                    <table class="table table-striped table-bordered">
+                        <caption ng-bind="weatherTableModel.time"></caption>
+                        <tbody>
+                        <tr ng-repeat="item in weatherTableModel.data">
+                            <td ng-bind="item.name"></td>
+                            <td ng-bind="item.value"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-md-9">
                     <uib-tabset active="0">

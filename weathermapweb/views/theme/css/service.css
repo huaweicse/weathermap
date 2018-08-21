@@ -2,9 +2,11 @@ body, table {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
-    color: #333333;
-    background-color: #ffffff;
+    color: #000000;
+    background-color: #FFFFFF;
 }
+
+h4 {color:black;}
 
 .topic {
     margin-bottom: 20px;
@@ -80,5 +82,5 @@ body, table {
     font-style: italic;
     font-size: smaller;
     font-weight: bolder;
-    color: #F77C47;
+    color: #FF0000;
 }
