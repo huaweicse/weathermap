@@ -1,9 +1,9 @@
 inputs:
   forecast_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/forecast:2.1.13'
+    default: 'swr.cn-north-1.myhuaweicloud.com/default/forecast:2.0.0'
     type: string
   fusionweather_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/fusionweather:2.1.13'
+    default: 'swr.cn-north-1.myhuaweicloud.com/default/fusionweather:2.0.0'
   limit_cpu:
     default: 500m
     type: string
@@ -16,11 +16,11 @@ inputs:
     default: weathermap_app
     type: string
   weather_beta_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/weather-beta:2.1.13'
+    default: 'swr.cn-north-1.myhuaweicloud.com/default/weather-beta:2.0.0'
   weather_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/weather:2.1.13'
+    default: 'swr.cn-north-1.myhuaweicloud.com/default/weather:2.0.0'
   weathermapweb_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/qinling/weathermapweb:2.2.2'
+    default: 'swr.cn-north-1.myhuaweicloud.com/default/weathermapweb:2.0.0'
 node_templates:
 
   #### forecast
