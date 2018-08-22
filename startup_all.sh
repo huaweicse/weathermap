@@ -80,7 +80,6 @@ cp microservice.yaml ./weather/
 cp microservice.yaml ./weather-beta/
 cp microservice.yaml ./forecast/
 cp microservice.yaml ./fusionweather/
-cp microservice.yaml ./weathermapweb/
 rm microservice.yaml
 
 # ln lib with all service
@@ -98,10 +97,6 @@ fi
 
 if [ ! -d "./fusionweather/lib" ]; then
    ln -s ../lib fusionweather/lib
-fi
-
-if [ ! -d "./weathermapweb/lib" ]; then
-   ln -s ../lib weathermapweb/lib
 fi
 mkdir -p ./logs
 # start all services
