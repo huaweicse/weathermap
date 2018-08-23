@@ -7,19 +7,40 @@ import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-@Component("/weathermapweb/ui/fusionweatherdata")
-public class FusionWeatherDataHandler implements Handler<RoutingContext>{
+import javax.annotation.PostConstruct;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FusionWeatherDataHandler.class);
+@Component("/weathermapweb/ui/fusionweatherdata")
+@Profile("mesher")
+public class MesherDataHandler implements Handler<RoutingContext>{
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MesherDataHandler.class);
 
     private static final RestTemplate invoker = RestTemplateBuilder.create();
 
-    @Value("${app.fusionweather.baseUrl:cse://fusionweather/fusionweather/show}")
+    @Value("${app.fusionweather.baseUrl:http://fusionweather/fusionweather/show}")
     String baseUrl;
+
+    @Value("${app.fusionweather.sideCar.host:localhost}")
+    String sideCarHost;
+
+    @Value("${app.fusionweather.sideCar.port:30101}")
+    int sideCarPort;
+
+    @PostConstruct
+    public void init() {
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(sideCarHost, sideCarPort));
+        requestFactory.setProxy(proxy);
+        invoker.setRequestFactory(requestFactory);
+    }
 
     @Override
     public void handle(RoutingContext routingContext) {
@@ -41,6 +62,6 @@ public class FusionWeatherDataHandler implements Handler<RoutingContext>{
             url = url + "&user=" + user;
         }
         LOGGER.info("GETing {}", url);
-        return Json.encode(invoker.getForObject(url, String.class));
+        return invoker.getForObject(url, String.class);
     }
 }
