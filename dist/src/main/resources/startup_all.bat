@@ -80,6 +80,7 @@ copy microservice.yaml .\weather\
 copy microservice.yaml .\weather-beta\
 copy microservice.yaml .\forecast\
 copy microservice.yaml .\fusionweather\
+copy microservice.yaml .\weathermapweb\
 del microservice.yaml
 
 REM mklink with all service
@@ -94,6 +95,9 @@ mklink /J forecast\lib lib
 
 if exist "fusionweather\lib" rmdir fusionweather\lib
 mklink /J fusionweather\lib lib
+
+if exist "weathermapweb\lib" rmdir weathermapweb\lib
+mklink /J weathermapweb\lib lib
 
 REM start all service
 echo "start weather"
