@@ -11,7 +11,7 @@ inputs:
     default: 0.5Gi
     type: string
   mesher_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse/cse-mesher:1.4.10'
+    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse/cse-mesher:latest'
   app_group:
     default: weathermap_app
     type: string
