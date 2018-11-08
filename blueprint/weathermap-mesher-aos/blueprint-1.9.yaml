@@ -1,9 +1,9 @@
 inputs:
   forecast_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse-cn-north-1/forecast:2.0.0'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/forecast:2.0.0'
     type: string
   fusionweather_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse-cn-north-1/fusionweather:2.0.0'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/fusionweather:2.0.0'
   limit_cpu:
     default: 500m
     type: string
@@ -11,16 +11,16 @@ inputs:
     default: 0.5Gi
     type: string
   mesher_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse-cn-north-1/cse-mesher:latest'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/cse-mesher:latest'
   app_group:
     default: weathermap_app
     type: string
   weather_beta_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse-cn-north-1/weather-beta:2.0.0'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/weather-beta:2.0.0'
   weather_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse-cn-north-1/weather:2.0.0'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/weather:2.0.0'
   weathermapweb_service_container_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/hwcse-cn-north-1/weathermapweb:2.0.0'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/weathermapweb:2.0.0'
 node_templates:
 
   #### forecast
