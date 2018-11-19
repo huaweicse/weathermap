@@ -17,7 +17,7 @@
 		<mirror>
 			<id>nexusMirror</id>
 			<mirrorOf>*</mirrorOf>
-			<url>http://maven.huaweicse.com/nexus/content/groups/public/</url>
+			<url>https://repo.huaweicloud.com/repository/maven/</url>
 		</mirror>
 	</mirrors>
 </settings>
