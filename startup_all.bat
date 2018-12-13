@@ -54,13 +54,6 @@ copy httpproxy.properties .\weather-beta\conf\
 if not exist ".\forecast\conf\" md .\forecast\conf\
 copy httpproxy.properties .\forecast\conf\
 
-REM  proxy:
-REM    enable: true
-REM    host: proxy.huawei.com
-REM    port: 8080
-REM    username: l00247303
-REM    passwd: Huawei012.
-
 echo   proxy:>> microservice.yaml
 echo     enable: %proxy.enabled%>> microservice.yaml
 echo     host: %proxy.host%>> microservice.yaml
