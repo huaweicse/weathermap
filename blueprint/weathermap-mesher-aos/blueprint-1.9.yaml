@@ -51,6 +51,15 @@ node_templates:
                 - name: forecast-srv-path
                   hostPath:
                     path: '/var/paas/sys/log/weathermap/forecast-service'
+                - name: forecast-secret
+                  secret:
+                    secretName:
+                      get_input:
+                    defaultMode: 448
+                    items:
+                    - key:
+                      mode:
+                      path:
               containers:
                 - name: forecast-srv-image
                   image: {get_input: forecast_service_container_image}
@@ -70,6 +79,8 @@ node_templates:
                       policy:
                         logs:
                           rotate: Daily
+                    - name: forecast-secret
+                      mountPath: '/opt/CSE/etc/auth'
   forecast-srv-ip:
     type: HuaweiCloud.CCE.Service
     properties:
