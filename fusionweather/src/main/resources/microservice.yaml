@@ -26,6 +26,9 @@ cse:
         default: qps-flowcontrol-provider,bizkeeper-provider
       Consumer:
         default: qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,fault-injection-consumer,auth-consumer
+  accesslog:
+    enabled: true
+    pattern: "%h %{dd/MMM/yyyy:HH:mm:ss.SSSZ|GMT+0008|en_US}t %r %s %B %D"
 #  credentials:
 #    accessKey: yourak
 #    secretKey: yoursk

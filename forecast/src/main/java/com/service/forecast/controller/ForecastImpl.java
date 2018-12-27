@@ -31,6 +31,7 @@ public class ForecastImpl {
 
   @PostConstruct
   public void init() {
+    LOGGER.info("Init success");
     DynamicIntProperty latency = DynamicPropertyFactory.getInstance().getIntProperty("latency", 0);
     latency.addCallback(() -> {
       latencyTime = latency.get();
