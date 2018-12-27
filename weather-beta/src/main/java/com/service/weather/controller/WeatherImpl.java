@@ -26,7 +26,7 @@ public class WeatherImpl
     @RequestMapping(value = "/show",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    public String showCurrentWeather(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = true) String user)
+    public String showCurrentWeather(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = false) String user)
     {
         LOGGER.info("showCurrentWeather() is called, city = [{}], user = [{}]", city, user);
         return new JsonObject(Json.encode(userCurrentweatherdataDelegate.showCurrentWeather(city))).toString();

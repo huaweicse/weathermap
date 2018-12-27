@@ -20,12 +20,17 @@ cse:
       serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
   rest:
     address: 0.0.0.0:13092
+  request:
+    timeout: 3000
   handler:
     chain:
       Provider:
         default: qps-flowcontrol-provider,bizkeeper-provider
       Consumer:
-        default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer,bizkeeper-consumer,auth-consumer
+        default: qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,fault-injection-consumer,auth-consumer
+  accesslog:
+    enabled: true
+    pattern: "%h %{dd/MMM/yyyy:HH:mm:ss.SSSZ|GMT+0008|en_US}t %r %s %B %D"
 #  credentials:
 #    accessKey: yourak
 #    secretKey: yoursk
