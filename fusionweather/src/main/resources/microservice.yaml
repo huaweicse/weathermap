@@ -25,7 +25,7 @@ cse:
       Provider:
         default: qps-flowcontrol-provider,bizkeeper-provider
       Consumer:
-        default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer,bizkeeper-consumer,auth-consumer
+        default: qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,fault-injection-consumer,auth-consumer
 #  credentials:
 #    accessKey: yourak
 #    secretKey: yoursk
