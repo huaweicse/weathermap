@@ -21,6 +21,10 @@ cse:
       serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
   rest:
     address: 0.0.0.0:13090
+    server:
+      compression: false
+      connection:
+        idleTimeoutInSeconds: 2
   handler:
     chain:
       Provider:

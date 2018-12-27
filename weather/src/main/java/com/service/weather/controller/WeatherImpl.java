@@ -37,6 +37,7 @@ public class WeatherImpl
             latencyTime = latency.get();
             LOGGER.info("Latency time change to {}", latencyTime);
         });
+        latencyTime = latency.get();
     }
 
     @RequestMapping(value = "/show",
