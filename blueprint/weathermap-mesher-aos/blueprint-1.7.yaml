@@ -1,0 +1,457 @@
+inputs:
+  forecast_service_container_image:
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/forecast:2.0.0'
+    type: string
+  fusionweather_service_container_image:
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/fusionweather:2.0.0'
+  limit_cpu:
+    default: 500m
+    type: string
+  limit_memory:
+    default: 0.5Gi
+    type: string
+  mesher_container_image:
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/cse-mesher:latest'
+  app_group:
+    default: weathermap_app
+    type: string
+  weather_beta_service_container_image:
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/weather-beta:2.0.0'
+  weather_service_container_image:
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/weather:2.0.0'
+  weathermapweb_service_container_image:
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/weathermapweb:2.0.0'
+node_templates:
+
+  #### forecast
+  forecast-service:
+    type: HuaweiCloud.CCE.Deployment
+    properties:
+      k8sManifest:
+        apiVersion: apps/v1beta1
+        kind: Deployment
+        metadata:
+          name: 'forecast-service'
+          labels:
+            app: forecast-service
+            appgroup: {get_input: app_group}
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: forecast-service
+              appgroup: {get_input: app_group}
+          template:
+            metadata:
+              labels:
+                app: forecast-service
+                appgroup: {get_input: app_group}
+            spec:
+              volumes:
+                - name: forecast-srv-path
+                  hostPath:
+                    path: '/var/paas/sys/log/weathermap/forecast-service'
+              containers:
+                - name: forecast-srv-image
+                  image: {get_input: forecast_service_container_image}
+                  ports:
+                    - containerPort: 13091
+                      protocol: TCP
+                  resources:
+                    limits:
+                      cpu: {get_input: limit_cpu}
+                      memory: {get_input: limit_memory}
+                    requests:
+                      cpu: 300m
+                      memory: 500Mi
+                  volumeMounts:
+                    - name: forecast-srv-path
+                      mountPath: '/home/logs'
+                      policy:
+                        logs:
+                          rotate: Daily
+  forecast-srv-ip:
+    type: HuaweiCloud.CCE.Service
+    properties:
+      k8sManifest:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: forecast-service
+          labels:
+            app: forecast-service
+            appgroup: {get_input: app_group}
+            name: forecast-service
+        spec:
+          ports:
+            - protocol: TCP
+              port: 13091
+              targetPort: 13091
+          selector:
+            app: forecast-service
+          sessionAffinity: None
+          type: ClusterIP
+
+  #### weather
+  weather-service:
+    type: HuaweiCloud.CCE.Deployment
+    properties:
+      k8sManifest:
+        apiVersion: apps/v1beta1
+        kind: Deployment
+        metadata:
+          name: 'weather-service'
+          labels:
+            app: weather-service
+            appgroup: {get_input: app_group}
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: weather-service
+              appgroup: {get_input: app_group}
+          template:
+            metadata:
+              labels:
+                app: weather-service
+                appgroup: {get_input: app_group}
+            spec:
+              volumes:
+                - name: weather-srv-path
+                  hostPath:
+                    path: '/var/paas/sys/log/weathermap/weather-service'
+              containers:
+                - name: weather-srv-image
+                  image: {get_input: weather_service_container_image}
+                  ports:
+                    - containerPort: 13090
+                      protocol: TCP
+                  resources:
+                    limits:
+                      cpu: {get_input: limit_cpu}
+                      memory: {get_input: limit_memory}
+                    requests:
+                      cpu: 300m
+                      memory: 500Mi
+                  volumeMounts:
+                    - name: weather-srv-path
+                      mountPath: '/home/logs'
+                      policy:
+                        logs:
+                          rotate: Daily
+  weather-srv-ip:
+    type: HuaweiCloud.CCE.Service
+    properties:
+      k8sManifest:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: weather-service
+          labels:
+            app: weather-service
+            appgroup: {get_input: app_group}
+            name: weather-service
+        spec:
+          ports:
+            - protocol: TCP
+              port: 13090
+              targetPort: 13090
+          selector:
+            app: weather-service
+          sessionAffinity: None
+          type: ClusterIP
+
+  #### weather-beta
+  weather-beta-service:
+    type: HuaweiCloud.CCE.Deployment
+    properties:
+      k8sManifest:
+        apiVersion: apps/v1beta1
+        kind: Deployment
+        metadata:
+          name: 'weather-beta-service'
+          labels:
+            app: weather-beta-service
+            appgroup: {get_input: app_group}
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: weather-beta-service
+              appgroup: {get_input: app_group}
+          template:
+            metadata:
+              labels:
+                app: weather-beta-service
+                appgroup: {get_input: app_group}
+            spec:
+              volumes:
+                - name: weather-beta-srv-path
+                  hostPath:
+                    path: '/var/paas/sys/log/weathermap/weather-beta-service'
+              containers:
+                - name: weather-beta-srv-image
+                  image: {get_input: weather_beta_service_container_image}
+                  ports:
+                    - containerPort: 13093
+                      protocol: TCP
+                  resources:
+                    limits:
+                      cpu: {get_input: limit_cpu}
+                      memory: {get_input: limit_memory}
+                    requests:
+                      cpu: 300m
+                      memory: 500Mi
+                  volumeMounts:
+                    - name: weather-beta-srv-path
+                      mountPath: '/home/logs'
+                      policy:
+                        logs:
+                          rotate: Daily
+  weather-beta-srv-ip:
+    type: HuaweiCloud.CCE.Service
+    properties:
+      k8sManifest:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: weather-beta-service
+          labels:
+            app: weather-beta-service
+            appgroup: {get_input: app_group}
+            name: weather-beta-service
+        spec:
+          ports:
+            - protocol: TCP
+              port: 13093
+              targetPort: 13093
+          selector:
+            app: weather-beta-service
+          sessionAffinity: None
+          type: ClusterIP
+
+  #### fusionweather
+  fusionweather-service:
+    type: HuaweiCloud.CCE.Deployment
+    properties:
+      k8sManifest:
+        apiVersion: apps/v1beta1
+        kind: Deployment
+        metadata:
+          name: 'fusionweather-service'
+          labels:
+            app: fusionweather-service
+            appgroup: {get_input: app_group}
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: fusionweather-service
+              appgroup: {get_input: app_group}
+          template:
+            metadata:
+              labels:
+                app: fusionweather-service
+                appgroup: {get_input: app_group}
+            spec:
+              volumes:
+                - name: fusionweather-srv-path
+                  hostPath:
+                    path: '/var/paas/sys/log/weathermap/fusionweather-service'
+              containers:
+                - name: fusionweather-srv-image
+                  image: {get_input: fusionweather_service_container_image}
+                  ports:
+                    - containerPort: 13092
+                      protocol: TCP
+                  resources:
+                    limits:
+                      cpu: {get_input: limit_cpu}
+                      memory: {get_input: limit_memory}
+                    requests:
+                      cpu: 300m
+                      memory: 500Mi
+                  volumeMounts:
+                    - name: fusionweather-srv-path
+                      mountPath: '/home/logs'
+                      policy:
+                        logs:
+                          rotate: Daily
+  fusionweather-srv-ip:
+    type: HuaweiCloud.CCE.Service
+    properties:
+      k8sManifest:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: fusionweather-service
+          labels:
+            app: fusionweather-service
+            appgroup: {get_input: app_group}
+            name: fusionweather-service
+        spec:
+          ports:
+            - protocol: TCP
+              port: 13092
+              targetPort: 13092
+          selector:
+            app: fusionweather-service
+          sessionAffinity: None
+          type: ClusterIP
+
+  #### weathermapweb
+  weathermapweb-website:
+    type: HuaweiCloud.CCE.Deployment
+    requirements:
+      - dependency:
+          node: weathermap-mesher-conf
+          relationship: HuaweiCloud.Relationships.ConnectsTo
+    properties:
+      k8sManifest:
+        apiVersion: apps/v1beta1
+        kind: Deployment
+        metadata:
+          name: 'weathermapweb-website'
+          labels:
+            app: weathermapweb-website
+            appgroup: {get_input: app_group}
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: weathermapweb-website
+              appgroup: {get_input: app_group}
+          template:
+            metadata:
+              labels:
+                app: weathermapweb-website
+                appgroup: {get_input: app_group}
+            spec:
+              volumes:
+                - name: weathermap-mesher-conf
+                  configMap:
+                    name: weathermap-mesher-conf
+                    defaultMode: 420
+                - name: weathermapweb-srv-path
+                  hostPath:
+                    path: "/var/paas/sys/log/weathermap/weathermapweb-website"
+              containers:
+                - name: weathermapweb-srv-image
+                  image: {get_input: weathermapweb_service_container_image}
+                  ports:
+                    - containerPort: 3000
+                      protocol: TCP
+                  env:
+                    - name: HTTP_PROXY_HOST
+                      value: '127.0.0.1'
+                    - name: HTTP_PROXY_PORT
+                      value: '30101'
+                    - name: SERVICE_ADDR
+                      value: 'fusionweather'
+                  resources:
+                    limits:
+                      cpu: {get_input: limit_cpu}
+                      memory: {get_input: limit_memory}
+                    requests:
+                      cpu: 300m
+                      memory: 500Mi
+                  volumeMounts:
+                  - name: weathermapweb-srv-path
+                    mountPath: "/home/logs"
+                    policy:
+                      logs:
+                        rotate: Daily
+                - name: mesher-image
+                  image: {get_input: mesher_container_image}
+                  ports:
+                    - containerPort: 30101
+                      protocol: TCP
+                  env:
+                    - name: SPECIFIC_ADDR
+                      value: '127.0.0.1:3000'
+                  resources:
+                    limits:
+                      cpu: {get_input: limit_cpu}
+                      memory: {get_input: limit_memory}
+                    requests:
+                      cpu: 300m
+                      memory: 500Mi
+                  volumeMounts:
+                  - name: weathermap-mesher-conf
+                    mountPath: "/tmp"
+                  - name: weathermapweb-srv-path
+                    mountPath: "/opt/mesher/log"
+                    policy:
+                      logs:
+                        rotate: Daily
+  weathermapweb-web-ip:
+    type: HuaweiCloud.CCE.Service
+    properties:
+      k8sManifest:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: weathermapweb-website
+          annotations:
+            service.protal.kubernetes.io/type: 'EIP'
+          labels:
+            app: weathermapweb-website
+            appgroup: {get_input: app_group}
+            name: weathermapweb-website
+        spec:
+          ports:
+            - protocol: TCP
+              port: 30101
+              targetPort: 30101
+          selector:
+            app: weathermapweb-website
+          sessionAffinity: None
+          type: NodePort
+  weathermap-mesher-conf:
+    properties:
+      data:
+        microservice.yaml: |
+          APPLICATION_ID: weathermap
+          service_description:
+            name: weathermapweb
+      name: weathermap-mesher-conf
+    type: HuaweiCloud.CCE.ConfigMap
+
+
+policies:
+  forecast-service-policies:
+    properties:
+      name:
+        get_input: app_group
+    targets:
+      - forecast-service
+    type: HuaweiCloud.APM.Pinpoint
+  fusionweather-service-policies:
+    properties:
+      name:
+        get_input: app_group
+    targets:
+      - fusionweather-service
+    type: HuaweiCloud.APM.Pinpoint
+  weather-beta-service-policies:
+    properties:
+      name:
+        get_input: app_group
+    targets:
+      - weather-beta-service
+    type: HuaweiCloud.APM.Pinpoint
+  weather-service-policies:
+    properties:
+      name:
+        get_input: app_group
+    targets:
+      - weather-service
+    type: HuaweiCloud.APM.Pinpoint
+  weathermapweb-website-policies:
+    properties:
+      name:
+        get_input: app_group
+    targets:
+      - weathermapweb-website
+    type: HuaweiCloud.APM.Pinpoint
+tosca_definitions_version: huaweicloud_tosca_version_1_0

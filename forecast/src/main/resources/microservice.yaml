@@ -7,23 +7,32 @@ service_description:
 cse:
   service:
     registry:
-      address: https://cse.cn-north-1.myhwclouds.com:443
+      address: https://cse.cn-north-1.myhuaweicloud.com:443
       instance:
         watch: false
   config:
     client:
-      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
       refreshMode: 1
       refresh_interval: 5000
   monitor:
     client:
-      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
   rest:
     address: 0.0.0.0:13091
-  credentials:
-    accessKey: yourak
-    secretKey: yoursk
-    akskCustomCipher: default
-    project: cn-north-1
-addressResolver:
-  servers: 8.8.8.8
+  handler:
+    chain:
+      Provider:
+        default: qps-flowcontrol-provider,bizkeeper-provider,auth-provider
+      Consumer:
+        default: qps-flowcontrol-consumer,loadbalance,fault-injection-consumer,bizkeeper-consumer
+  accesslog:
+    enabled: true
+    pattern: "%h %{dd/MMM/yyyy:HH:mm:ss.SSSZ|GMT+0008|en_US}t %r %s %B %D"
+#  credentials:
+#    accessKey: yourak
+#    secretKey: yoursk
+#    akskCustomCipher: default
+#    project: cn-north-1
+#addressResolver:   ## windows下，域名无法解析，可配置addressResolver
+#  servers: 8.8.8.8

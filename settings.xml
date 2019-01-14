@@ -15,9 +15,29 @@
 	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 	<mirrors>
 		<mirror>
-			<id>nexusMirror</id>
-			<mirrorOf>*</mirrorOf>
-			<url>http://maven.huaweicse.com/nexus/content/groups/public/</url>
+			<id>huaweicloud</id>
+			<mirrorOf>*,!HuaweiCloudSDK</mirrorOf>
+			<url>https://repo.huaweicloud.com/repository/maven/</url>
 		</mirror>
 	</mirrors>
+	<profiles>
+		<profile>
+			<id>MyProfile</id>
+			<repositories>
+				<repository>
+					<id>HuaweiCloudSDK</id>
+					<url>https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>MyProfile</activeProfile>
+	</activeProfiles>
 </settings>

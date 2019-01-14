@@ -37,6 +37,10 @@
             <groupId>com.huawei.paas.cse</groupId>
             <artifactId>cse-solution-service-engine</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>handler-publickey-auth</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>

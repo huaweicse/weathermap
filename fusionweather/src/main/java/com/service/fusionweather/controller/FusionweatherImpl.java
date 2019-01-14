@@ -1,12 +1,13 @@
 package com.service.fusionweather.controller;
 
+import com.service.fusionweather.entity.FusionWeatherSummary;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.service.fusionweather.entity.FusionWeatherSummary;
 
 import javax.ws.rs.core.MediaType;
 
@@ -16,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 @RequestMapping(path = "/fusionweather", produces = MediaType.APPLICATION_JSON)
 public class FusionweatherImpl
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FusionweatherImpl.class);
 
     @Autowired
     private FusionweatherImplDelegate userFusionweatherdataDelegate;
@@ -25,8 +27,7 @@ public class FusionweatherImpl
             method = RequestMethod.GET)
     public FusionWeatherSummary show(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = false) String user)
     {
-
+        LOGGER.info("show() is called, city = [{}], user = [{}]", city, user);
         return userFusionweatherdataDelegate.showFusionWeather(city, user);
     }
-
 }

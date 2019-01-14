@@ -1,19 +1,28 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="app">
 <head>
     <meta charset="UTF-8">
-    <title>天气预报 CSE-Demo-2.0</title>
+    <title>{{'weatherDemo'|translate}}</title>
     <link href="lib/bootstrap-3.3.7/bootstrap.min.css" rel="stylesheet">
     <link href="./theme/css/service.css" rel="stylesheet">
 </head>
-<body ng-app="app">
-<div ng-controller="LineCtrl">
+<body ng-controller="LineCtrl">
+<div>
     <div class="topic">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
-                    <h1>城市天气预报</h1>
+                <div class="col-md-4">
+                    <h1>{{'cityWeather'|translate}}</h1>
                 </div>
-                <div class="col-md-offset-2 col-md-2">
+                <div class="col-md-offset-4 col-md-2">
+                    <div class="btn-group top-button-div">
+                        <label class="btn btn-default" ng-model="toggleLangModel.lang" uib-btn-radio="'中文'"
+                               ng-click="toggleLangModel.click('zh_cn')">中文</label>
+                        <label class="btn btn-default" ng-model="toggleLangModel.lang" uib-btn-radio="'English'"
+                               ng-click="toggleLangModel.click('en_us')">English</label>
+                    </div>
+                </div>
+                <div class="col-md-2">
                     <div class="btn-group top-button-div">
                         <label class="btn btn-default" ng-model="temperatureTypeModel.dataText" uib-btn-radio="'°C'"
                                ng-click="temperatureTypeModel.changeClickFn('C')">°C</label>
@@ -30,44 +39,28 @@
                  close="restAlertModel.closeAlert($index)" ng-bind="alert.msg"
                  dismiss-on-timeout="5000"></div>
             <div class="input-group col-md-6 col-md-offset-3">
-                <input type="text" class="form-control" placeholder="您的城市名称（全拼）" ng-model="searchModel.cityNameInput"
+                <input type="text" class="form-control" placeholder="{{'yourCity'|translate}}" ng-model="searchModel.cityNameInput"
                        ng-keypress="($event.which === 13) ? searchModel.searchClickFn() : 0">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button" ng-click="searchModel.searchClickFn()">搜索</button>
+                    <button class="btn btn-primary" type="button" ng-click="searchModel.searchClickFn()">{{'search'|translate}}</button>
                 </span>
             </div>
         </div>
         <div class="row">
             <div class="row text-center sub-text-div">
-                <h3>当前天气详情及未来5天预报</h3>
+                <h3>{{'weatherDetails'|translate}}</h3>
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <h4 ng-bind="globalData.text1"></h4>
-                    <div>
-                        <span><img ng-src="./theme/image/{{weatherTableModel.image}}.png"></span>
-                        <span class="weather-temp-txt weather-text-shadow" ng-bind="weatherTableModel.temp"></span>
-                    </div>
-                    <p ng-bind="weatherTableModel.weather"></p>
-                    <table class="table table-striped table-bordered">
-                        <caption ng-bind="weatherTableModel.time"></caption>
-                        <tbody>
-                        <tr ng-repeat="item in weatherTableModel.data">
-                            <td ng-bind="item.name"></td>
-                            <td ng-bind="item.value"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div ng-show="uviDataModel.isBeta">
+				    <div ng-show="uviDataModel.isBeta" class="beta-line">
                         <table class="table table-striped table-bordered">
                             <caption>
-                                当前城市紫外线
-                                <span class="uvi-new-span">NEW</span>
+                               <h4> {{'currentUV'|translate}} <span class="uvi-new-span">NEW</span></h4>
                             </caption>
                             <thead>
                             <tr>
-                                <th>发布时间</th>
-                                <th>指数</th>
+                                <th>{{'releaseTime'|translate}}</th>
+                                <th>{{'index'|translate}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -87,6 +80,22 @@
                         </div>
 
                     </div>
+				
+                    <h4 ng-bind="globalData.text1" class="{{uviDataModel.isBeta?'text1':''}}"></h4>
+                    <div>
+                        <span><img ng-src="./theme/image/{{weatherTableModel.image}}.png"></span>
+                        <span class="weather-temp-txt weather-text-shadow" ng-bind="weatherTableModel.temp"></span>
+                    </div>
+                    <p ng-bind="weatherTableModel.weather"></p>
+                    <table class="table table-striped table-bordered">
+                        <caption ng-bind="weatherTableModel.time"></caption>
+                        <tbody>
+                        <tr ng-repeat="item in weatherTableModel.data">
+                            <td ng-bind="item.name"></td>
+                            <td ng-bind="item.value"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-md-9">
                     <uib-tabset active="0">
@@ -180,21 +189,25 @@
     <div id="footer" class="container">
         <nav class="navbar navbar-default navbar-fixed-bottom">
             <div class="navbar-inner navbar-content-center">
-                <p class="muted credit foot-txt-div">基于<a href="http://www.huaweicloud.com/product/cse.html"
-                                                          target='_blank'>微服务引擎（CSE）</a>开发，天气数据来源于<a
-                        href="https://openweathermap.org/" target='_blank'>OpenWeatherMap</a>
+                <p class="muted credit foot-txt-div">
+                    {{'baseOn'|translate}}
+                    <a href="http://www.huaweicloud.com/product/cse.html" target='_blank'>{{'cse'|translate}}</a>
+                    {{'dataSource'|translate}}
+                    <a href="https://openweathermap.org/" target='_blank'>OpenWeatherMap</a>
                 </p>
             </div>
         </nav>
-
     </div>
-
 </div>
 
 </body>
-<script src="./lib/angular-1.6.6/angular.min.js"></script>
-<script src="./lib/Chart.js-2.7.1/Chart.min.js"></script>
-<script src="./lib/angular-chart.js-1.1.1/angular-chart.min.js"></script>
-<script src="./lib/ui-bootstrap-2.5.0/ui-bootstrap-tpls-2.5.0.min.js"></script>
-<script src="js/weather-2.0.js"></script>
+    <script src="./lib/angular-1.6.6/angular.min.js"></script>
+    <script src="./lib/angular-translate/angular-translate.min.js"></script>
+    <script src="./lib/angular-translate/angular-translate-loader-static-files.min.js"></script>
+    <script src="./lib/Chart.js-2.7.1/Chart.min.js"></script>
+    <script src="./lib/angular-chart.js-1.1.1/angular-chart.min.js"></script> 
+    <script src="./lib/ui-bootstrap-2.5.0/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="./i18n/en_us.js"></script>
+    <script src="./i18n/zh_cn.js"></script>
+    <script src="js/weather-2.0.js"></script>
 </html>

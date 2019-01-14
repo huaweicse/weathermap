@@ -1,7 +1,6 @@
-From 100.125.0.198:20202/hwcse/nodejs:1.0.0
+From 100.125.0.198:20202/huawei-cse/nodejs:1.0.0
 
-RUN apk --no-cache add tzdata bash curl && \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone
 
 WORKDIR /home/apps/

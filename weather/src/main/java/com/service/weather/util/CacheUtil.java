@@ -3,6 +3,7 @@ package com.service.weather.util;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class CacheUtil
                 LOGGER.info("Retrieve the forecast weather data from OpenWeatherMap");
                 return openWeatherMapClient.showCurrentWeather(nm);
             });
+        }
+
+        if (StringUtils.isBlank(su.getCityName()))
+        {
+            cacheMap.remove(kk);
         }
 
         return su;
