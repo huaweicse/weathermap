@@ -20,4 +20,5 @@ fi
 #swith to work directory
 cd `dirname "$0"`
 mkdir ../logs
+npm install >../logs/weathermapweb.log 2>&1 &
 npm start >../logs/weathermapweb.log 2>&1
