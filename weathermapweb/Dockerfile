@@ -1,4 +1,4 @@
-From 100.125.0.198:20202/huawei-cse/nodejs:1.0.0
+From node:8
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone
@@ -12,6 +12,6 @@ COPY ./routes ./routes
 COPY ./shutdown.sh ./
 COPY ./start.sh ./
 COPY ./views ./views
-
+COPY ./node_modules ./node_modules
 
 ENTRYPOINT ["sh", "/home/apps/start.sh"]
