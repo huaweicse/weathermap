@@ -1,11 +1,13 @@
 package com.service.forecast.entity.original;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Generated;
 import java.util.List;
 
 @Generated("com.robohorse.robopojogenerator")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ForecastData
 {
 
