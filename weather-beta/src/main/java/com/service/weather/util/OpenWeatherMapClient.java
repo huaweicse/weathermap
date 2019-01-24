@@ -4,20 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.service.weather.entity.objective.CurrentWeatherSummary;
 import com.service.weather.entity.original.UltravioletIndex;
 import com.service.weather.entity.original.WeatherData;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * OpenWeatherMapClient
@@ -45,6 +47,31 @@ public class OpenWeatherMapClient {
 
     private static String UVI_URL = UVI_URL_HTTP;
 
+    private static WeatherData MOCK_WEATHER_DATA = null;
+
+    private static UltravioletIndex MOCK_ULTRAVIOLET_INDEX = null;
+
+    static {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            ClassPathResource resource = new ClassPathResource("mock/weather.json");
+            InputStream inputStream = resource.getInputStream();
+            String data = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining(System.lineSeparator()));
+            MOCK_WEATHER_DATA = mapper.readValue(data, WeatherData.class);
+        } catch (IOException e) {
+            LOGGER.error("Failed to get mock data.", e);
+        }
+
+        try {
+            ClassPathResource resource = new ClassPathResource("mock/uvi.json");
+            InputStream inputStream = resource.getInputStream();
+            String data = new BufferedReader(new InputStreamReader(inputStream)).lines().collect(Collectors.joining(System.lineSeparator()));
+            MOCK_ULTRAVIOLET_INDEX = mapper.readValue(data, UltravioletIndex.class);
+        } catch (IOException e) {
+            LOGGER.error("Failed to get mock data.", e);
+        }
+    }
+
     @Value("${mock.enabled}")
     private boolean mockEnabled = false;
 
@@ -61,11 +88,8 @@ public class OpenWeatherMapClient {
         try {
             WeatherData weatherData = null;
             if (mockEnabled) {
-                String data = getMockData("classpath:mock/weather.json");
-                ObjectMapper mapper = new ObjectMapper();
-                weatherData = mapper.readValue(data, WeatherData.class);
+                weatherData = MOCK_WEATHER_DATA;
 
-                Random ra = new Random();
                 summary.setCityName(city);
                 summary.setCountry(weatherData.getSys().getCountry());
                 summary.setTemperature(randomDouble(weatherData.getMain().getTemp(), 10, 5));
@@ -110,11 +134,8 @@ public class OpenWeatherMapClient {
         try {
             UltravioletIndex ultravioletIndex = null;
             if (mockEnabled) {
-                String data = getMockData("classpath:mock/uvi.json");
-                ObjectMapper mapper = new ObjectMapper();
-                ultravioletIndex = mapper.readValue(data, UltravioletIndex.class);
+                ultravioletIndex = MOCK_ULTRAVIOLET_INDEX;
 
-                Random ra = new Random();
                 summary.setUviDate(ultravioletIndex.getDate());
                 summary.setUviDateISO(ultravioletIndex.getDateIso());
                 summary.setUviValue(randomDouble(ultravioletIndex.getValue(), 4, 2));
@@ -145,14 +166,6 @@ public class OpenWeatherMapClient {
 
         LOGGER.info("switch url from openweather to: " + WEATHER_URL);
         LOGGER.info("switch url from openweather to: " + UVI_URL);
-    }
-
-    private String getMockData(String fileName) {
-        try {
-            return FileUtils.readFileToString(ResourceUtils.getFile(fileName), Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            return null;
-        }
     }
 
     private double randomDouble(double v, int m, int n) {
