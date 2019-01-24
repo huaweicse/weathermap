@@ -1,0 +1,32 @@
+APPLICATION_ID: weathermap
+service_description:
+  name: edge
+  version: 0.0.1
+  properties:
+    allowCrossApp: false
+cse:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhwclouds.com:443
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
+      refreshMode: 1
+      refresh_interval: 5000
+  #monitor:
+    #client:
+      #serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
+  rest:
+    address: 0.0.0.0:13080
+  handler:
+    chain:
+      Consumer:
+        default: loadbalance
+  #When a local project is deployed as a container outside a cluster, you need to delete all monitor and credentials comments and configure the AK/SK.
+  #credentials:
+    #accessKey: ak
+    #secretKey: sk
+    #akskCustomCipher: default
+    #project: cn-north-1
