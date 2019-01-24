@@ -1,0 +1,41 @@
+{
+  "coord": {
+    "lon": 114.05,
+    "lat": 22.54
+  },
+  "weather": [
+    {
+      "id": 721,
+      "main": "Haze",
+      "description": "haze",
+      "icon": "50n"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 16.31,
+    "pressure": 1020,
+    "humidity": 59,
+    "temp_min": 16,
+    "temp_max": 17
+  },
+  "visibility": 9000,
+  "wind": {
+    "speed": 1.5
+  },
+  "clouds": {
+    "all": 0
+  },
+  "dt": 1548243000,
+  "sys": {
+    "type": 1,
+    "id": 9154,
+    "message": 0.005,
+    "country": "CN",
+    "sunrise": 1548198325,
+    "sunset": 1548237961
+  },
+  "id": 1795565,
+  "name": "Shenzhen",
+  "cod": 200
+}

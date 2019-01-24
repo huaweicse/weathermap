@@ -1,7 +1,6 @@
 package com.service.weather.controller;
 
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonObject;
+import com.service.weather.entity.objective.CurrentWeatherSummary;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,19 +15,17 @@ import javax.ws.rs.core.MediaType;
 
 @RestSchema(schemaId = "weather")
 @RequestMapping(path = "/weather", produces = MediaType.APPLICATION_JSON)
-public class WeatherImpl
-{
+public class WeatherImpl {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherImpl.class);
 
     @Autowired
     private WeatherImplDelegate userCurrentweatherdataDelegate;
 
     @RequestMapping(value = "/show",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.GET)
-    public String showCurrentWeather(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = false) String user)
-    {
+    public CurrentWeatherSummary showCurrentWeather(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = false) String user) {
         LOGGER.info("showCurrentWeather() is called, city = [{}], user = [{}]", city, user);
-        return new JsonObject(Json.encode(userCurrentweatherdataDelegate.showCurrentWeather(city))).toString();
+        return userCurrentweatherdataDelegate.showCurrentWeather(city);
     }
 }

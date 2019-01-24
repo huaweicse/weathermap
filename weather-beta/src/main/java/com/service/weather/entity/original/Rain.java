@@ -1,5 +1,6 @@
 package com.service.weather.entity.original;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,6 +12,7 @@ import javax.annotation.Generated;
 @JsonPropertyOrder({
         "1h"
 })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Rain
 {
 

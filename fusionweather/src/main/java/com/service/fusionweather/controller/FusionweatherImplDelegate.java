@@ -41,9 +41,8 @@ public class FusionweatherImplDelegate
         CurrentWeatherSummary su;
         try
         {
-            String s = invoker.getForObject(url, String.class, new Object());
-            su = Json.decodeValue(s, CurrentWeatherSummary.class);
-            System.out.println("-----  " + s);
+            Object s = invoker.getForObject(url, Object.class, new Object());
+            su = Json.decodeValue(Json.encode(s), CurrentWeatherSummary.class);
         }
         catch (Exception e)
         {
@@ -60,8 +59,8 @@ public class FusionweatherImplDelegate
         ForecastWeatherSummary su;
         try
         {
-            String s = invoker.getForObject(url, String.class, new Object());
-            su = Json.decodeValue(s, ForecastWeatherSummary.class);
+            Object s = invoker.getForObject(url, Object.class, new Object());
+            su = Json.decodeValue(Json.encode(s), ForecastWeatherSummary.class);
         }
         catch (Exception e)
         {

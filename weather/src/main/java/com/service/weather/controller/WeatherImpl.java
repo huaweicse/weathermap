@@ -1,7 +1,8 @@
 package com.service.weather.controller;
 
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonObject;
+import com.netflix.config.DynamicIntProperty;
+import com.netflix.config.DynamicPropertyFactory;
+import com.service.weather.entity.objective.CurrentWeatherSummary;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.PostConstruct;
 import javax.ws.rs.core.MediaType;
 
-import com.netflix.config.DynamicIntProperty;
-import com.netflix.config.DynamicPropertyFactory;
-
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.CseSpringDemoCodegen", date = "2017-11-01T10:26:36.166+08:00")
 
 @RestSchema(schemaId = "weather")
 @RequestMapping(path = "/weather", produces = MediaType.APPLICATION_JSON)
-public class WeatherImpl
-{
+public class WeatherImpl {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherImpl.class);
 
     @Autowired
@@ -41,10 +38,9 @@ public class WeatherImpl
     }
 
     @RequestMapping(value = "/show",
-            produces = { "application/json" },
+            produces = {"application/json"},
             method = RequestMethod.GET)
-    public String showCurrentWeather(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = false) String user)
-    {
+    public CurrentWeatherSummary showCurrentWeather(@RequestParam(value = "city", required = true) String city, @RequestParam(value = "user", required = false) String user) {
         if (latencyTime > 0) {
             try {
                 Thread.sleep(latencyTime);
@@ -53,6 +49,6 @@ public class WeatherImpl
             }
         }
         LOGGER.info("showCurrentWeather() is called, city = [{}], user = [{}]", city, user);
-        return new JsonObject(Json.encode(userCurrentweatherdataDelegate.showCurrentWeather(city))).toString();
+        return userCurrentweatherdataDelegate.showCurrentWeather(city);
     }
 }
