@@ -124,6 +124,8 @@ public class OpenWeatherMapClient {
                 summary.setSunset(weatherData.getSys().getSunset());
                 summary.setCoordinatesLon(weatherData.getCoord().getLon());
                 summary.setCoordinatesLat(weatherData.getCoord().getLat());
+                lat = weatherData.getCoord().getLat();
+                lon = weatherData.getCoord().getLon();
             }
         } catch (Exception e) {
             LOGGER.error("Failed to get the current weather data from OpenWeatherMap with " + city, e);
