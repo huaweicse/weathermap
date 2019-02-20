@@ -1,3 +1,20 @@
-# weathermap
-本文档通过一个示例向您展示CSE微服务引擎的基本能力，以及对新服务快速开发和已有服务零改造接入的支持能力。示例是一个天气预报应用，该应用可以为您提供世界各地当前的天气详情以及未来3天的预报。
+# WEATHERMAP
 
+> * **WEATHERMAP** is a weather forecasting app that gives you current weather details around the world and forecasts for the next three days.
+> * This demo shows you the basic capabilities of the **CSE microservices engine** and the ability to support **rapid development** of new services and **zero-transform access** to existing services.
+
+# Building
+
+* **Java 8 +**  and **Node 4.8.4+**
+* Modify file **credentials**, set with your own **AS/SK**. 
+
+> Default **project** is **cn-north-1**. To modify it, you can simply set the following property in **credentials** :
+
+```
+project=xxx
+```
+* Run **startup_all.bat** or **startup_all.sh**
+* **WebBrowser**: http://localhost:3000
+> As **WEATHERMAP** needs to obtain weather forecast data through the Openweather service, the working environment must be able to **connect the Internet**.
+
+more details: http://support.huaweicloud.com/bestpractice-servicestage/servicestage_bestpractice_0032.html
