@@ -1,7 +1,6 @@
 package com.service.edge;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.auth.AuthenticationException;
 import org.apache.servicecomb.common.rest.filter.HttpServerFilter;
 import org.apache.servicecomb.core.Invocation;
 import org.apache.servicecomb.foundation.common.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.apache.servicecomb.foundation.vertx.http.HttpServletResponseEx;
 import org.apache.servicecomb.swagger.invocation.Response;
 import org.apache.servicecomb.swagger.invocation.exception.CommonExceptionData;
 import org.apache.servicecomb.swagger.invocation.exception.ExceptionFactory;
-import org.apache.servicecomb.swagger.invocation.exception.InvocationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

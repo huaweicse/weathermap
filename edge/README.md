@@ -1,13 +1,13 @@
 # Edge Service
 
-- 对外开发Forecast与Weather服务的接口
-- 增加请求头鉴权（{"auth": "weather"}）
+-  expose **Forecast Service** and **Weather Service** interface
+- add auth header（{"auth": "weather"}）
 
 
-## 访问边缘服务
+## Access Edge Service
 
 http://localhost:13080/api/forecast/forecast/show
 
 http://localhost:13080/api/weather/weather/show
 
-注：/api/{microservice-name}/{rest-path}
+Note：/api/{microservice-name}/{rest-path}
