@@ -61,7 +61,7 @@
             text10: T.T("excess11"),
             refreshText: function () {
                 $scope.globalData.text1 = T.T("currentCity") + $scope.globalData.city + ", " + $scope.globalData.country;
-                $scope.globalData.text2 = T.T("weather36")+ $scope.globalData.city + ", " + $scope.globalData.country;
+                $scope.globalData.text2 = T.T("weather 36 ")+ $scope.globalData.city + ", " + $scope.globalData.country;
                 $scope.globalData.text3 = T.T("weather3D") + $scope.globalData.city + ", " + $scope.globalData.country;
                 $scope.globalData.text4 = T.T("map5D") + $scope.globalData.city + ", " + $scope.globalData.country;
             }
