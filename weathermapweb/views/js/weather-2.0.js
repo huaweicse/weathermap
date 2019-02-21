@@ -1,10 +1,10 @@
 (function () {
     var myApp = angular.module("app", ['chart.js', 'ui.bootstrap', 'pascalprecht.translate']);
     myApp.config(["$translateProvider", function($translateProvider) {
-        $translateProvider.translations('en_us', globalLanguageEn);
         $translateProvider.translations('zh_cn', globalLanguageZh);
+        $translateProvider.translations('en_us', globalLanguageEn);
         if (!window.localStorage.getItem("lang")) {
-            window.localStorage.setItem("lang", navigator.language.toLowerCase() == "en_us" ? "en_us" : "zh_cn");
+            window.localStorage.setItem("lang", navigator.language.toLowerCase() == "zh_cn" ? "zh_cn" : "en_us");
         }
         var lang = window.localStorage.getItem("lang");
         $translateProvider.preferredLanguage(lang);
