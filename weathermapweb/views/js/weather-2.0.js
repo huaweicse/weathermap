@@ -1,10 +1,10 @@
 (function () {
     var myApp = angular.module("app", ['chart.js', 'ui.bootstrap', 'pascalprecht.translate']);
     myApp.config(["$translateProvider", function($translateProvider) {
-        $translateProvider.translations('en_us', globalLanguageEn);
         $translateProvider.translations('zh_cn', globalLanguageZh);
+        $translateProvider.translations('en_us', globalLanguageEn);
         if (!window.localStorage.getItem("lang")) {
-            window.localStorage.setItem("lang", navigator.language.toLowerCase() == "en_us" ? "en_us" : "zh_cn");
+            window.localStorage.setItem("lang", navigator.language.toLowerCase() == "zh_cn" ? "zh_cn" : "en_us");
         }
         var lang = window.localStorage.getItem("lang");
         $translateProvider.preferredLanguage(lang);
@@ -61,7 +61,7 @@
             text10: T.T("excess11"),
             refreshText: function () {
                 $scope.globalData.text1 = T.T("currentCity") + $scope.globalData.city + ", " + $scope.globalData.country;
-                $scope.globalData.text2 = T.T("weather36")+ $scope.globalData.city + ", " + $scope.globalData.country;
+                $scope.globalData.text2 = T.T("weather 36 ")+ $scope.globalData.city + ", " + $scope.globalData.country;
                 $scope.globalData.text3 = T.T("weather3D") + $scope.globalData.city + ", " + $scope.globalData.country;
                 $scope.globalData.text4 = T.T("map5D") + $scope.globalData.city + ", " + $scope.globalData.country;
             }
