@@ -21,7 +21,7 @@
 
         $scope.forecastMainChartModel = {
             labels: [],
-            series: ['最高温度', '最低温度'],
+            series: ['highest temperature', 'lowest temperature'],
             data: [],
             onClick: function (points, evt) {
                 console.log(points, evt);
@@ -54,15 +54,15 @@
 
         $scope.forecastChartMultiModel = {
             labels: [],
-            series: ['温度'],
+            series: ['temperature'],
             data: [],
             // colors: ['#45b7cd', '#ff6384', '#DCDCDC'],
             datasetOverride: [{
-                label: "温度",
+                label: "temperature",
                 borderWidth: 1,
                 type: 'bar'
             }, {
-                label: "温度",
+                label: "temperature",
                 borderWidth: 3,
                 hoverBackgroundColor: "rgba(255,99,132,0.4)",
                 hoverBorderColor: "rgba(255,99,132,1)",

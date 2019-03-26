@@ -35,5 +35,5 @@ cse:
 #    secretKey: yoursk
 #    akskCustomCipher: default
 #    project: cn-north-1
-#addressResolver:   ## windows下，域名无法解析，可配置addressResolver
+#addressResolver:   ## If failed with unable to resolve domain name in windows, you can resolve it by set addressResolver.x
 #  servers: 8.8.8.8
