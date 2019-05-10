@@ -23,8 +23,8 @@ if "%project%" == "" (
 REM prepare cse microservice.yaml
 REM cse:
 REM  credentials:
-REM    accessKey: UZLI6CLENEO6D2ANV35U
-REM    secretKey: nAQ7jQyynhuDckGGtzNYMJGDZoFqaEfNwhadIXXP
+REM    accessKey: yourak
+REM    secretKey: yoursk
 REM    akskCustomCipher: default
 :microservice
 echo APPLICATION_ID: weathermap> microservice.yaml
