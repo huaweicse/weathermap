@@ -12,8 +12,8 @@ router.get('/', function (req, res, next) {
     var opt = {
         host: proxy_host,
         port: proxy_port,
-        method: 'GET',    //这里是发送的方法
-        path: 'http://' + service_addr + '/fusionweather/show?city=' + req.query.city,    //这里是访问的路径
+        method: 'GET',
+        path: 'http://' + service_addr + '/fusionweather/show?city=' + req.query.city,
         headers: {}
     };
     if (req.query.user) {
