@@ -17,4 +17,4 @@ project=xxx
 * **WebBrowser**: http://localhost:3000
 > As **WEATHERMAP** needs to obtain weather forecast data through the Openweather service, the working environment must be able to **connect the Internet**.
 
-more details: http://support.huaweicloud.com/bestpractice-servicestage/servicestage_bestpractice_0032.html
+more details: https://support.huaweicloud.com/bestpractice-servicestage/servicestage_bestpractice_0031.html
