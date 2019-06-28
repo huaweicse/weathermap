@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
@@ -86,9 +87,13 @@ public class OpenWeatherMapClient {
                 summary.setCoordinatesLon(weatherData.getCoord().getLon());
                 summary.setCoordinatesLat(weatherData.getCoord().getLat());
             } else {
-                weatherData = restTemplate
-                        .getForObject(String.format(URL, APP_KEY, city), WeatherData.class);
-
+                try {
+                    weatherData = restTemplate
+                            .getForObject(String.format(URL, APP_KEY, city), WeatherData.class);
+                } catch (ResourceAccessException e) {
+                    LOGGER.info("IO problem exists, use mock data instead");
+                    weatherData = MOCK_WEATHER_DATA;
+                }
                 summary.setCityName(weatherData.getName());
                 summary.setCountry(weatherData.getSys().getCountry());
                 summary.setTemperature(weatherData.getMain().getTemp());
