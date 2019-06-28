@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
@@ -87,8 +88,13 @@ public class OpenWeatherMapClient {
                 }
                 summary.setDateList(dateListItemList);
             } else {
-                forecastData = restTemplate.getForObject(String.format(URL, APP_KEY, city),
-                        ForecastData.class);
+                try {
+                    forecastData = restTemplate.getForObject(String.format(URL, APP_KEY, city),
+                            ForecastData.class);
+                } catch (ResourceAccessException e) {
+                    LOGGER.info("IO problem exists, use mock data instead");
+                    forecastData = MOCK_FORECAST_DATA;
+                }
                 LOGGER.info("end showForecastWeather from openweather cost " + (System.currentTimeMillis() - l));
                 summary.setCityName(forecastData.getCity().getName());
                 summary.setCountry(forecastData.getCity().getCountry());
